@@ -1,0 +1,20 @@
+package com.gekkobt.enums;
+
+public enum GekkoProperties {
+
+	UPLOADPATH("upload.path");
+
+	GekkoProperties(String value) {
+		this.value = value;
+	}
+
+	private String value;
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+}

@@ -1,0 +1,119 @@
+.div-content-view
+{
+    width: 700px;
+}
+.div-content-view-inclusao
+{
+    width: 450px;
+}
+.div-coluna-lado-lado
+{
+    width: 250px;
+    float: left;
+}
+.div-coluna-inclusao
+{
+    width: 170px;
+    float: left;
+}
+.div-coluna-lado-lado label
+{
+    text-align: left;
+    height: 25px;
+    margin-top: 10px;
+}
+.div-coluna-inclusao label
+{
+    text-align: left;
+    height: 25px;
+    margin-top: 8px;
+}
+.label-inclusao
+{
+    text-align: left;
+    margin-left: 30px;
+}
+.div-coluna-lado-lado input
+{
+    margin-left: 30px;
+    width: 180px;
+}
+.div-coluna-lado-lado select
+{
+    margin-left: 30px;
+    width: 190px;
+    margin-bottom:15px;
+}
+.div-coluna-lado-lado input[type=checkbox]
+{
+    width: 16px;
+    margin-left: 30px;
+}
+.div-coluna-lado-lado input[type=radio]
+{
+    margin-left: 5px;
+    margin-right: -20px;
+    width: 10px;
+    float: left;
+}
+.border-div
+{
+    border: 1px solid black;
+}
+.div-coluna-nomes-linhas
+{
+    width: 160px;
+}
+.div-margin-coluna-meio
+{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.radio-filtros
+{
+    margin-top: 15px;
+    text-align: justify;
+    vertical-align: text-bottom;
+}
+.page-header h1 {
+  text-transform:none;
+}
+.modal-large {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  z-index: 1050;
+  width: 850px;
+  margin-left: -400px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+}
+.modal-large .form-container {
+  border: none;
+  font-size: 12px;
+  margin: 0;
+  width: 830px;
+}
+.modal-large .form-container fieldset {
+  float:left;
+  padding: 20px 20px 0;
+}
+.modal-large .form-container .control-group {
+  background: url("../img/BG-dotted-light.gif") repeat-x scroll 0 0 transparent;
+  margin-bottom: 0;
+  padding: 8px 0;
+  width:370px;
+}
+.modal-large .form-container .control-group:first-child {
+  background: none repeat scroll 0 0 transparent;
+  padding-top: 0;
+}
+.modal-large .form-container .form-actions {
+  padding-left: 220px;
+}
+.form-horizontal .control-label
+{
+    text-align:left;
+}

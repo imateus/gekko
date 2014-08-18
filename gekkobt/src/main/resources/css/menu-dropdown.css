@@ -1,0 +1,45 @@
+* 									{ margin: 0; padding: 0; }
+body								{ font: 14px Helvetica, Sans-Serif; } 
+#page-wrap							{ width: 800px; margin: 25px auto; } 
+a									{ text-decoration: none; }
+ul									{ list-style: none; }
+p                                   { margin: 15px 0; }
+
+/* 
+	LEVEL ONE
+*/
+ul.dropdown                         { position: relative; }
+ul.dropdown li                      { font-weight: bold; float: left; zoom: 1; height:35px; display: block;}
+ul.dropdown a:hover		            { color: #000; }
+ul.dropdown a:active                { color: #0069B6; }
+ul.dropdown li a                    { display: block;height:35px;
+	 								  color: #222; }
+ul.dropdown li:last-child a         { border-right: none; } /* Doesn't work in IE */
+ul.dropdown li.hover,
+ul.dropdown li:hover                {	background: #004785; /* Old browsers */
+										background: -moz-linear-gradient(top,  #004785 0%, #0069b6 100%); /* FF3.6+ */
+										background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#004785), color-stop(100%,#0069b6)); /* Chrome,Safari4+ */
+										background: -webkit-linear-gradient(top,  #004785 0%,#0069b6 100%); /* Chrome10+,Safari5.1+ */
+										background: -o-linear-gradient(top,  #004785 0%,#0069b6 100%); /* Opera 11.10+ */
+										background: -ms-linear-gradient(top,  #004785 0%,#0069b6 100%); /* IE10+ */
+										background: linear-gradient(to bottom,  #004785 0%,#0069b6 100%); /* W3C */
+										filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004785', endColorstr='#0069b6',GradientType=0 ); /* IE6-9 */
+										color: black; position: relative; }
+ul.dropdown li.hover a              { color: black; }
+
+
+/* 
+	LEVEL TWO
+*/
+ul.dropdown ul 						{text-align: left; width: 200px; visibility: hidden; position: absolute; top: 100%; left: 0;display: block; }
+ul.dropdown ul li 					{ font-weight: normal; background: #004785; color: #000;display: block;
+									   float: none;  padding-right: 12px;width: 100%;}
+									  
+                                    /* IE 6 & 7 Needs Inline Block */
+ul.dropdown ul li a					{ border-right: none; width: 100%; display: block; } 
+
+/* 
+	LEVEL THREE
+*/
+ul.dropdown ul ul 					{ left: 100%; top: 0; }
+ul.dropdown li:hover > ul 			{ visibility: visible; }
