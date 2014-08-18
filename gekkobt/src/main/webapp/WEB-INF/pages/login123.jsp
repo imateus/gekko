@@ -74,7 +74,7 @@
 		<form action="login/userMake" method="post">
 
 			<div id="container">
-				<label for="userLogin">Usernames:</label> <input type="text"
+				<label for="userLogin">Username:</label> <input type="text"
 					id="userLogin" name="userLogin"> <label for="userPassword">Password:</label>
 				<input type="password" id="userPassword" name="userPassword">
 				<div>
