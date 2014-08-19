@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -56,15 +57,27 @@ public class ReportUserOccurrencesController {
 		return "report/report-user-occurrences";
 	}
 
-	/*
-	 * @RequestMapping(value = "/getUser", method = RequestMethod.POST) public
-	 * String getUser(String idUserSelected, Model model) {
-	 * 
-	 * List<ReportUserBean> listReport = getSelectedUser(int
-	 * .parseLong(idUserSelected));
-	 * 
-	 * model.addAttribute("reports", listReport); model.addAttribute("user",
-	 * userService.findAll()); return "report/report-user-occurrences"; }
-	 */
+	@RequestMapping(value = "/showTableUser", method = RequestMethod.GET)
+	public String showTable(ModelMap model, ReportUserBean bean) {
+		
+	
+		if (bean.getResponsibleId() == null) {
+			try {
+				model.addAttribute("reports",
+						reportUserOccurrencesService.filterReportUser());
+				listAllReport = reportUserOccurrencesService.filterReportUser();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+
+			List<ReportUserBean> listReport = reportUserOccurrencesService.filterReport(bean.getResponsibleId().intValue(),
+							listAllReport);
+			model.addAttribute("reports", listReport);
+		}
+	
+		return "ajaxPages/table-occurrence-users";
+	}
 
 }

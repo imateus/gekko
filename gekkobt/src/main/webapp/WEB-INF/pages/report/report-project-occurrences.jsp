@@ -46,7 +46,10 @@ button {
 </style>
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
+		$.unblockUI();
+		$('#Id option:eq(1)').prop("selected", true);
 		$("#footer").addClass('pos-absolute');
 		$("#sidebar").accordion({
 			collapsible : true
@@ -65,7 +68,6 @@ button {
 				separator : true
 			} ]
 		});
-	});
 
 	function ExibeTelaSemMenu(nomeTela) {
 		$("#body").empty();
@@ -77,17 +79,19 @@ button {
 		});
 	}
 	
+
 	$(document).on('click', '#filterReport', function() {
-		$.get("", {
-			"projectId" : $("#projectId").find(":selected").get(0).id
+		$.get("projectOccurrences/showTable", {
+			Id : $("#Id").find(":selected").get(0).id,
 		}, function(data) {
 			obj = handleJSON(data);
 			hasError = handleError(obj);
 			if (!hasError) {
+				$("#tableProjects").html(data);
 			}
 		});
 	});
-	
+
 </script>
 </head>
 <body>
@@ -104,15 +108,15 @@ button {
 						<h1>Ocorrências por projeto</h1>
 					</div>
 					
-					<form class="form-inline actions-toolbar">
+					<div class="form-inline actions-toolbar">
 
 						<div class="row-fluid actions-toolbar-inner"
 							style="margin-top: 10px;">
 
 							<div class="span1" style="width: 75px;">Projeto</div>
 							<div class="span1" style="width: 160px;">
-								<select name="projectId" style="width: 126px;"
-									id="projectId">
+								<select name="Id" style="width: 126px;"
+									id="Id">
 									<option value="">Todos...</option>
 									<c:forEach items="${project}" var="project">
 										<option id="${project.id}">
@@ -129,9 +133,8 @@ button {
 						</div>
 
 
-					</form>
-					<div style="width: 100%; overflow: auto;">
-
+					</div >
+					<div style="width: 100%; overflow: auto;" id=tableProjects>
 
 						<table id="tbReportProject"
 							class="table table-bordered table-striped">
@@ -159,32 +162,6 @@ button {
 								</c:forEach>
 							</tbody>
 						</table>
-
-						<!-- 		<table id="example" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th><i class="sort"></i></th>
-									<th>Erro<i class="sort"></i>
-									</th>
-									<th>Alteração de escopo<i class="sort"></i>
-									</th>
-									<th>Reincidência<i class="sort"></i>
-									</th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="odd">
-									<th>Pendente</th>
-								</tr>
-								<tr class="even">
-									<th>Resolvido</th>
-								</tr>
-								<tr class="odd">
-									<th>Análise</th>
-								</tr>
-							</tbody>
-						</table> -->
 					</div>
 				
 				</div>

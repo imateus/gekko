@@ -56,7 +56,6 @@ button {
 </style>
 
 <script>
-
 	function verificar() {
 
 		var tecla = window.event.keyCode;
@@ -91,6 +90,18 @@ button {
 						"labelOccurrenceProject"))
 				| (!validationField($("#typeOccurrenceBean").find(":selected")
 						.get(0).id, "labelOccurrenceType"))) {
+			return false;
+		}
+		return true;
+	}
+
+	function validationStatusRequired() {
+		if (!validationField($("#statusOccurrenceEdit").find(":selected")
+				.get(0).id, "labelOccurrenceTitle")
+				| (!validationField($("#historicJustification").val(),
+						"labelOccurrenceDescription"))
+				| (!validationField($("#dateChange").val(),
+						"labelOccurrenceResponsible"))) {
 			return false;
 		}
 		return true;
@@ -501,7 +512,6 @@ button {
 					<form action="upload" method="POST" enctype="multipart/form-data"
 						id="fileForm">
 
-
 						<button id="btnConsultar" class="btn btn-primary">
 							<i class="glyphicon glyphicon-upload"></i>Importar
 						</button>
@@ -723,9 +733,8 @@ button {
 					<div>
 
 						<div class="txt-fld">
-							<label style="float: left; position: relative; top: 5px;">Status:</label>
+							<label><strong id="labelAlterStatus" class="required"></strong>Status:</label>
 							<select name="statusOccurrenceEdit" id="statusOccurrenceEdit">
-								<option id="0">Selecione...</option>
 								<c:forEach items="${status}" var="status">
 									<option id="${status.id}">
 										<c:out value="${status.statusType}"></c:out>
@@ -734,15 +743,16 @@ button {
 							</select>
 						</div>
 						<div class="txt-fld">
-							<label class="label_1"
-								style="float: left; position: relative; top: 5px;">Justificativa:</label>
+							<label class="label_1"><strong
+								id="labelAlterStatusDescription" class="required"></strong>Justificativa:</label>
 							<textarea id="historicJustification" name="historicJustification"
 								style="width: 300px;" class="" rows="8" cols="100"></textarea>
 							<br />
 						</div>
 						<div class="txt-fld">
 							<div>
-								<label>Data de alteração de status:</label>
+								<label><strong id="labelOccurrenceTitle"
+									class="required"></strong>Data de alteração de status:</label>
 							</div>
 							<div class="" style="width: 162px;">
 								<div class="input-append date" data-date="02-01-2014"
@@ -754,12 +764,11 @@ button {
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-						<button id="submitFrmEditStatusOccurrence" type="button"
-							class="btn btn-primary">Salvar</button>
-					</div>
-
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+					<button id="submitFrmEditStatusOccurrence" type="button"
+						class="btn btn-primary">Salvar</button>
 				</div>
 			</div>
 		</div>

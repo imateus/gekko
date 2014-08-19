@@ -68,6 +68,22 @@ button {
 			});
 		});
 	}
+	
+	$(document).on('click', '#filterReportUser',
+	 		function() {
+	 		$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
+			$.get("userOccurrences/showTableUser", {
+				responsibleId : $("#responsibleId").find(":selected").get(0).id,
+			}, function(data) {
+				obj = handleJSON(data);
+				hasError = handleError(obj);
+				if (!hasError) {
+					$("#tableUsers").html(data);
+				}
+			});
+		});
+	$.unblockUI();
+	
 </script>
 
 </head>
@@ -86,46 +102,33 @@ button {
 					<div class="page-header">
 						<h1>Ocorrências por usuário</h1>
 					</div>
-					<form class="form-inline actions-toolbar">
+					<div class="form-inline actions-toolbar">
 
 						<div class="row-fluid actions-toolbar-inner"
 							style="margin-top: 10px;">
-							<div class="span1" style="width: 110px;">Usuário:</div>
 
+							<div class="span1" style="width: 75px;">Usuário:</div>
 							<div class="span1" style="width: 160px;">
 								<select name="responsibleId" style="width: 126px;"
 									id="responsibleId">
 									<option value="">Todos...</option>
 									<c:forEach items="${user}" var="user">
-										<option value="${user.id}">
+										<option id="${user.id}">
 											<c:out value="${user.userName}"></c:out>
 										</option>
 									</c:forEach>
 								</select>
 							</div>
-							<%-- <div class="span1" style="width: 75px;">Projetos:</div>
-							<div class="span1" style="width: 160px;">
-								<select name="user" style="width: 126px;" id="user">
-									<option value="">Selecione...</option>
-									<c:forEach items="${project}" var="project">
-										<option value="${project.id}">
-											<c:out value="${project.projectName}"></c:out>
-										</option>
-									</c:forEach>
-								</select>
-							</div> --%>
-							<div class="span2" style="margin-left: 60px; float: right;">
-								<button class="btn btn-primary" id="btnFiltrar">
+							<div class="span2" style="margin-left: 60px; float: left;">
+								<button class="btn btn-primary" id="filterReportUser">
 									<i class="icon-filter icon-white"></i>&nbsp;Filtrar
-								</button>
-								<button class="btn">
-									<i class="icon-remove"></i>&nbsp;Limpar
 								</button>
 							</div>
 						</div>
 
-					</form>
-					<div style="width: 100%; overflow: auto;">
+
+					</div >
+					<div style="width: 100%; overflow: auto;" id="tableUsers">
 						<table id="example" class="table table-bordered table-striped">
 							<thead>
 								<tr>
