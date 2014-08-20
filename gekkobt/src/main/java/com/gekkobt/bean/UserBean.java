@@ -29,6 +29,10 @@ public class UserBean {
 
 	private List<OccurrenceBean> userResponsable;
 
+	private String userId;
+	private String userIp;
+	private String sessionSpec;
+	
 	public Long getId() {
 		return id;
 	}
@@ -84,5 +88,25 @@ public class UserBean {
 	public void setUserResponsable(List<OccurrenceBean> userResponsable) {
 		this.userResponsable = userResponsable;
 	}
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}     
+	public String getUserIp() {
+		return userIp;
+	}
+	public void setUserIp(String userIp) {
+		this.userIp = userIp;
+	}
 
+	public String getSessionSpec() {
+		return sessionSpec;
+	}
+
+	public void setSessionSpec(String sessionSpec) {
+		this.sessionSpec = sessionSpec;
+	}
 }

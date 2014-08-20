@@ -1,7 +1,7 @@
 package com.gekkobt.enums;
 
 public enum FileProperties {
-	DASHBOARD("C:\\dev\\Gekko"),
+	GEKKO("C:\\dev\\Gekko"),
 
 	// DASHBOARD("/apps/was/aplic/dashboard/dat/Dashboard"),
 

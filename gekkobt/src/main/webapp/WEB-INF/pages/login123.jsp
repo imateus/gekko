@@ -20,8 +20,8 @@
 
 <link rel="stylesheet" href="css/uniform.default.css" media="screen" />
 <script src="resources/js/modal-esqueci-senha.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<!-- <script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> -->
 <script src="jquery.uniform.js"></script>
 
 <c:import url="taglibs/resources.jsp"></c:import>
@@ -30,8 +30,8 @@
 
 </head>
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<!-- <script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> -->
 
 
 <script type="text/javascript">

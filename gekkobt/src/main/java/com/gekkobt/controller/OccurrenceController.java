@@ -30,6 +30,7 @@ import com.gekkobt.bean.AnnexBean;
 import com.gekkobt.bean.HistoricStatusBean;
 import com.gekkobt.bean.OccurrenceBean;
 import com.gekkobt.bean.OccurrenceFilterBean;
+import com.gekkobt.bean.ProjectBean;
 import com.gekkobt.bean.UserBean;
 import com.gekkobt.service.AnnexService;
 import com.gekkobt.service.HistoricStatusService;
@@ -108,7 +109,7 @@ public class OccurrenceController {
 
 		model.addAttribute("searchId", bean.getIdOccurrence());
 		
-		
+		req.getSession().setAttribute("occurrence", list);
 		req.getSession().setAttribute("qtdOccurrenceOnPage", list.size());
 		req.getSession().setAttribute("firtsOccurrenceOnPage",
 				(numberPage * 20 + 1) - 20);
@@ -142,6 +143,7 @@ public class OccurrenceController {
 			req.getSession().setAttribute("firtsOccurrenceOnPage",
 					(pagination * 20) - 19);
 
+			req.getSession().setAttribute("occurrence", list);
 			req.getSession().setAttribute("numberOfOcurrences", numberPage);
 			req.getSession().setAttribute("countOcurrences",
 					(int) quantityOccurrence);
@@ -229,15 +231,24 @@ public class OccurrenceController {
 		}
 
 		try {
+			OccurrenceBean bean = new OccurrenceBean();
+			
 			if (id != null) {
-				OccurrenceBean bean = occurrenceService.findOccurrenceId(Long
+				bean = occurrenceService.findOccurrenceId(Long
 						.parseLong(id));
-				model.addAttribute("occurrence", bean);
+				
 				occurenceDeleted = bean.getOccurrenceDeleted();
 				if (bean == null) {
 					model.addAttribute("update", false);
 				}
 			}
+			else {
+				bean.setProjectBean(new ProjectBean());
+			}
+				
+			
+			model.addAttribute("occurrence", bean);
+			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -398,5 +409,14 @@ public class OccurrenceController {
 		}
 
 		return "redirect:../occurrence/maintenance?id=" + hdnId;
+	}
+	
+	@RequestMapping(value = "/excelParce", method = RequestMethod.GET)
+	public void excelParce(String id, HttpServletRequest req,
+			AnnexBean annexBean) throws Exception {
+		
+		List<OccurrenceBean> list = (List<OccurrenceBean>) req.getSession().getAttribute("occurrence");
+		occurrenceService.ExportExcel("Occorrencias - Gekko",list );
+
 	}
 }

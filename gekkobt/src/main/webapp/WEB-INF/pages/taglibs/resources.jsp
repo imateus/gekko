@@ -59,8 +59,8 @@
 	rel="stylesheet">
 <link href="<c:url value='/resources/css/date-picker.css' />"
 	rel="stylesheet" />
-<!-- <script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script> -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
 
 
 <script src="<c:url value='/resources/js/gekko-bug-tracker.js' />"></script>
@@ -69,7 +69,8 @@
 <script src="<c:url value='/resources/js/jquery.maskedinput.js' />"></script>
 <script src="<c:url value='/resources/js/jquery.maskedinput.min.js' />"></script>
 <script src="<c:url value='/resources/js/jquery.blockUI.js' />"></script>
-<script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+<%-- <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+<script src="<c:url value='/resources/js/jquery.js' />"></script> --%>
 <script src="resources/js/bootstrap-datepicker.js" type="text/javascript"></script>
 
 

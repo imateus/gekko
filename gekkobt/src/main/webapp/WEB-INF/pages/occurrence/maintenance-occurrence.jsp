@@ -97,11 +97,11 @@ button {
 
 	function validationStatusRequired() {
 		if (!validationField($("#statusOccurrenceEdit").find(":selected")
-				.get(0).id, "labelOccurrenceTitle")
+				.get(0).id, "labelAlterStatus")
 				| (!validationField($("#historicJustification").val(),
-						"labelOccurrenceDescription"))
+						"labelAlterStatusDescription"))
 				| (!validationField($("#dateChange").val(),
-						"labelOccurrenceResponsible"))) {
+						"labelDateFinalization"))) {
 			return false;
 		}
 		return true;
@@ -283,6 +283,12 @@ button {
 			'click',
 			'#submitFrmEditStatusOccurrence',
 			function() {
+				$("#labelAlterStatus").text("");
+				$("#labelAlterStatusDescription").text("");
+				$("#labelDateFinalization").text("");
+				if (validationStatusRequired()) {
+					
+				
 				$.post("alterStatus", {
 					id : $("#hdn-id-ocurrence").val(),
 					'idOccurrenceBean.id' : $("#id").val(),
@@ -298,6 +304,13 @@ button {
 						$("#hdn-id-ocurrence").val(obj.id);
 					}
 				});
+				}else{
+					$("#messageAlertStatus").removeClass("not-visible");
+					$("#messageAlertStatus").removeClass("alert-success");
+					$("#messageAlertStatus").addClass("alert-danger");
+					$("#printErrorStatus")
+							.text("* campos não preenchidos, favor preencher todos os campos.");
+				}
 			});
 
 	$(document).on(
@@ -340,9 +353,8 @@ button {
 							$('#submitFrmNewOccurrence').show();
 							$('#buttonEdit').hide();
 							$('#buttonExport').hide();
-							$(
-									'#projectBean option:eq(${occurrence.projectBean.id})')
-									.prop("selected", true);
+							
+							$('#projectBean option:eq(${occurrence.projectBean.id})').prop("selected", true);
 							$("#hdn-id-ocurrence").val("${occurrence.id}");
 						}
 					});
@@ -730,8 +742,12 @@ button {
 					<h4 class="modal-title" id="ModalLabel">Alterar status</h4>
 				</div>
 				<div class="modal-body">
+					<div id="messageAlertStatus"
+						class="alert alert-danger fade in not-visible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"></button>
+						<h4 id="printErrorStatus"></h4>
+					</div>
 					<div>
-
 						<div class="txt-fld">
 							<label><strong id="labelAlterStatus" class="required"></strong>Status:</label>
 							<select name="statusOccurrenceEdit" id="statusOccurrenceEdit">
@@ -751,7 +767,7 @@ button {
 						</div>
 						<div class="txt-fld">
 							<div>
-								<label><strong id="labelOccurrenceTitle"
+								<label><strong id="labelDateFinalization"
 									class="required"></strong>Data de alteração de status:</label>
 							</div>
 							<div class="" style="width: 162px;">

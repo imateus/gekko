@@ -1,100 +1,125 @@
 package com.gekkobt.entity;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+
+/**
+ * The persistent class for the TD0_LOG database table.
+ * 
+ */
 @Entity
-@Table(name = "TB_LOG")
-public class LogEntity {
+@Table(name="TD0_LOG")
+public class LogEntity implements Serializable {
+
+	private static final long serialVersionUID = -8429270988528259383L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID_LOG", precision = 0)
-	private Long id;
+	@Column(name="LOG_ID")
+	private long logId;
 
-	@Column(name = "LOG_EVENT")
-	private String logEvent;
+	@Column(name="LOG_DATE")
+	private Timestamp logDate;
 
-	@Column(name = "LOG_DATE")
-	@Temporal(value = TemporalType.DATE)
-	private Date logDate;
+	@Column(name="LOG_MESSAGE_TEXT")
+	private String logMessageText;
 
-	@Column(name = "LOG_RESPONSIBLE")
-	private String logResponsible;
+	@Column(name="LOG_SOURCE_TEXT")
+	private String logSourceText;
 
-	@Column(name = "LOG_TYPE")
-	private String logType;
+	@Column(name="LOG_TYPE_IND")
+	private String logTypeInd;
+	
+	@Column(name="LOG_DATE_GLB")
+	private Timestamp logDateGlb;
+	
+	@Column(name="LOG_USER_ID")
+	private String logUserId;
+	
+	@Column(name="LOG_SUCCESS_IND")
+	private String logSucessInd;
+	
+	@Column(name="LOG_REQUEST_IP_ADDR")
+	private String logRequestIpAddr;
 
-	@Column(name = "LOG_EXCEPTION_MESSAGE")
-	private String exceptionMessage;
-
-	@Column(name = "LOG_STACKTRACE")
-	private String stackTrace;
-
-	public Long getId() {
-		return id;
+	public LogEntity() {
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public long getLogId() {
+		return this.logId;
 	}
 
-	public String getLogEvent() {
-		return logEvent;
+	public void setLogId(long logId) {
+		this.logId = logId;
 	}
 
-	public void setLogEvent(String logEvent) {
-		this.logEvent = logEvent;
+	public Timestamp getLogDate() {
+		return this.logDate;
 	}
 
-	public Date getLogDate() {
-		return logDate;
-	}
-
-	public void setLogDate(Date logDate) {
+	public void setLogDate(Timestamp logDate) {
 		this.logDate = logDate;
 	}
 
-	public String getLogResponsible() {
-		return logResponsible;
+	public String getLogMessageText() {
+		return this.logMessageText;
 	}
 
-	public void setLogResponsible(String logResponsible) {
-		this.logResponsible = logResponsible;
+	public void setLogMessageText(String logMessageText) {
+		this.logMessageText = logMessageText;
 	}
 
-	public String getLogType() {
-		return logType;
+	public String getLogSourceText() {
+		return this.logSourceText;
 	}
 
-	public void setLogType(String logType) {
-		this.logType = logType;
+	public void setLogSourceText(String logSourceText) {
+		this.logSourceText = logSourceText;
 	}
 
-	public String getExceptionMessage() {
-		return exceptionMessage;
+	public String getLogTypeInd() {
+		return this.logTypeInd;
 	}
 
-	public void setExceptionMessage(String exceptionMessage) {
-		this.exceptionMessage = exceptionMessage;
+	public void setLogTypeInd(String logTypeInd) {
+		this.logTypeInd = logTypeInd;
 	}
 
-	public String getStackTrace() {
-		return stackTrace;
+	public Timestamp getLogDateGlb() {
+		return logDateGlb;
 	}
 
-	public void setStackTrace(String stackTrace) {
-		this.stackTrace = stackTrace;
+	public void setLogDateGlb(Timestamp logDateGlb) {
+		this.logDateGlb = logDateGlb;
 	}
 
+	public String getLogUserId() {
+		return logUserId;
+	}
+
+	public void setLogUserId(String logUserId) {
+		this.logUserId = logUserId;
+	}
+
+	public String getLogSucessInd() {
+		return logSucessInd;
+	}
+
+	public void setLogSucessInd(String logSucessInd) {
+		this.logSucessInd = logSucessInd;
+	}
+
+	public String getLogRequestIpAddr() {
+		return logRequestIpAddr;
+	}
+
+	public void setLogRequestIpAddr(String logRequestIpAddr) {
+		this.logRequestIpAddr = logRequestIpAddr;
+	}
 	
-
 }

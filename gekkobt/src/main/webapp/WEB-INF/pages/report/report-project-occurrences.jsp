@@ -45,42 +45,18 @@ button {
 
 </style>
 
-<script type="text/javascript">
-
+<script>
 	$(document).ready(function() {
-		$.unblockUI();
 		$('#Id option:eq(1)').prop("selected", true);
 		$("#footer").addClass('pos-absolute');
 		$("#sidebar").accordion({
 			collapsible : true
 		});
-
-		$('#tbBankAccount').flexigrid({
-			width : 799,
-			singleSelect : true,
-			buttons : [ {
-				name : 'Adicionar',
-			}, {
-				separator : true
-			}, {
-				name : 'Aprovar',
-			}, {
-				separator : true
-			} ]
-		});
-
-	function ExibeTelaSemMenu(nomeTela) {
-		$("#body").empty();
-		$.each(nomeTela.split(','), function(index, nomeTela) {
-			$.get(nomeTela, function(data) {
-				$("#body").append(data);
-				$(".body").datepicker();
-			});
-		});
-	}
+	});
 	
-
-	$(document).on('click', '#filterReport', function() {
+	
+	$(document).on('click', '#filterReport', 
+		function() {
 		$.get("projectOccurrences/showTable", {
 			Id : $("#Id").find(":selected").get(0).id,
 		}, function(data) {
@@ -91,11 +67,10 @@ button {
 			}
 		});
 	});
-
+	
 </script>
 </head>
 <body>
-
 	<!-- Header -->
 	<c:import url="../taglibs/header.jsp"></c:import>
 	<!-- Header -->

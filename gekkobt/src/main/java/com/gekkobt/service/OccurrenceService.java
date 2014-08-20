@@ -37,6 +37,7 @@ import com.gekkobt.entity.UserEntity;
 import com.gekkobt.enums.GekkoProperties;
 import com.gekkobt.enums.Status;
 import com.gekkobt.environment.EnvironmentVariables;
+import com.gekkobt.util.ExcelParse;
 
 @Service
 @Transactional
@@ -312,6 +313,12 @@ public class OccurrenceService {
 		}
 		return null;
 
+	}
+	
+	public void ExportExcel(String title, List<OccurrenceBean> list) {
+		ExcelParse excelParse = new ExcelParse();
+		
+		excelParse.exportExcel(title, list);
 	}
 
 }

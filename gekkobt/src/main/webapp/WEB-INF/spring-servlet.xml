@@ -14,18 +14,46 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+
 	<context:component-scan base-package="com.gekkobt.controller" />
 	<context:component-scan base-package="com.gekkobt.service" />
 	<context:component-scan base-package="com.gekkobt.util" />
 	<context:component-scan base-package="com.gekkobt.bean" />
 	<context:component-scan base-package="com.gekkobt.dao" />
+	<context:component-scan base-package="com.gekkobt.aop" />
+	<context:component-scan base-package="com.gekkobt.thread" />
+	<context:component-scan base-package="com.gekkobt.util" />
 
+
+	<bean id="logAOP" class="com.gekkobt.aop.LogAOP" />
+
+	<bean id="advisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="logAOP" />
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+				<property name="patterns">
+					<list>
+						<value>com.gekkobt.controller.*</value>
+						<value>com.gekkobt.service.*</value>
+						<value>com.gekkobt.dao.AnnexDAO*</value>
+						<value>com.gekkobt.dao.HistoricStatusDAO*</value>
+						<value>com.gekkobt.dao.OccurrenceDAO*</value>
+						<value>com.gekkobt.dao.PriorityDAO*</value>
+						<value>com.gekkobt.dao.ProjectDAO*</value>
+						<value>com.gekkobt.dao.ReportProjectOccurrencesDAO*</value>
+						<value>com.gekkobt.dao.ReportUserOccurrencesDAO*</value>
+						<value>com.gekkobt.dao.StatusDAO*</value>
+						<value>com.gekkobt.dao.TypeOccurrenceDAO*</value>
+						<value>com.gekkobt.dao.UserDao*</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
 
 	<mvc:annotation-driven />
 
 	<mvc:default-servlet-handler />
-
-
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 

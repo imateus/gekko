@@ -17,15 +17,13 @@ public class ReportUserOccurrencesDAO extends GenericDAO<ReportUserEntity, BigIn
 	public List<ReportUserEntity> filterReportOccurrencesUser()
 			throws ParseException {
 		
-		Query query = em.createNativeQuery("call procRepotUser()", ReportUserEntity.class); 
+		Query query = em.createNativeQuery("call procReportUser()", ReportUserEntity.class); 
 		  
 		/*
 		 *Procedure BD - mysql 
-		TypedQuery<OccurrenceEntity> query = null;
-		TypedQuery queryFinal = null;*/
-			/*	use test;
-		DELIMITER $$
-		create procedure procRepotUser()
+				DELIMITER $$
+		
+		CREATE DEFINER=`root`@`localhost` PROCEDURE `procReportUser`()
 		BEGIN
 		 select max(dataChange) as dataChange,
 				responsibleName,
@@ -34,17 +32,17 @@ public class ReportUserOccurrencesDAO extends GenericDAO<ReportUserEntity, BigIn
 				max(qtdFinalizado) as qtdFinalizado,
 				max(qtdIncluida) as qtdIncluida
 		from (
-		 select max(h.HISTORIC_DATE_CHANGE) as dataChange,
+		 select null as dataChange,
 				u.user_name as responsibleName,	
-				h.HISTORIC_RESPONSIBLE_CHANGE as responsibleId, 
-		 		count(h.historic_status) as qtdPendende,
+				o.occurrence_user_responsible  as responsibleId, 
+		 		count(o.occurrence_status) as qtdPendende,
 				0 as qtdFinalizado,
 				0 as qtdIncluida
-		    from test.tb_historic_status h
+		    from test.tb_occurrence o
 			inner join test.tb_user u
-			on u.id_user = h.HISTORIC_RESPONSIBLE_CHANGE
-		   where h.historic_status = 1
-		group by h.HISTORIC_RESPONSIBLE_CHANGE, h.historic_status
+			on u.id_user = o.occurrence_user_responsible
+		   where o.occurrence_status = 1 and o.occurrence_deleted = 1
+		group by o.occurrence_user_responsible, o.occurrence_status
 		union all
 		 select max(HISTORIC_DATE_CHANGE) as dataChange, 
 				u.user_name as responsibleName,		
@@ -69,7 +67,7 @@ public class ReportUserOccurrencesDAO extends GenericDAO<ReportUserEntity, BigIn
 			on u.id_user = o.occurrence_user_inclusion
 		group by o.occurrence_user_inclusion) t
 		group by responsibleId;
-		END $$ 
+		END
 		*/
 		return query.getResultList();
 	}
