@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,7 +22,8 @@ public class LogEntity implements Serializable {
 	private static final long serialVersionUID = -8429270988528259383L;
 
 	@Id
-	@Column(name="LOG_ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "LOG_ID", precision = 0)
 	private long logId;
 
 	@Column(name="LOG_DATE")

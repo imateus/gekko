@@ -81,7 +81,7 @@ public class OccurrenceController {
 				"userLogged");
 		Object UserFind = userService.findAll();
 		OccurrenceFilterBean bean = new OccurrenceFilterBean();
-		
+		Integer num = null;
 		List<OccurrenceBean> list = getOccurrences(bean, 1, userBean.getId());
 		double quantityOccurrence = (int) getNumberOccurrences(bean,
 				userBean.getId());
@@ -90,6 +90,7 @@ public class OccurrenceController {
 
 		if (list.size() > 0) {
 			model.addAttribute("occurrence", list);
+			/*model.addAttribute("excelOccurrence", excel);*/
 			model.addAttribute("qtdOccurrenceOnPage", list.size());
 			model.addAttribute("firtsOccurrenceOnPage", (1 * 20 + 1) - 20);
 		} else {
@@ -110,6 +111,8 @@ public class OccurrenceController {
 		model.addAttribute("searchId", bean.getIdOccurrence());
 		
 		req.getSession().setAttribute("occurrence", list);
+		/*req.getSession().setAttribute("excelOccurrence", null);*/
+		/*req.getSession().setAttribute("excelOccurrence", excel);*/
 		req.getSession().setAttribute("qtdOccurrenceOnPage", list.size());
 		req.getSession().setAttribute("firtsOccurrenceOnPage",
 				(numberPage * 20 + 1) - 20);
@@ -124,9 +127,13 @@ public class OccurrenceController {
 			HttpServletRequest req, HttpServletResponse resp,
 			@ModelAttribute("filter-occurrence") OccurrenceFilterBean bean,
 			@PathVariable Integer pagination) {
-
+		
+		
 		List<OccurrenceBean> list = getOccurrences(bean, pagination,
 				bean.getIdResponsableOccurrence());
+		
+		
+		
 		double quantityOccurrence = (int) getNumberOccurrences(bean,
 				bean.getIdResponsableOccurrence());
 
@@ -134,6 +141,7 @@ public class OccurrenceController {
 
 		if (list.size() > 0) {
 			model.addAttribute("occurrence", list);
+			/*model.addAttribute("exceloccurrence", excel);*/
 			model.addAttribute("numberOfOcurrences", numberPage);
 			model.addAttribute("countOcurrences", (int) quantityOccurrence);
 			model.addAttribute("qtdOccurrenceOnPage", list.size());
@@ -144,6 +152,8 @@ public class OccurrenceController {
 					(pagination * 20) - 19);
 
 			req.getSession().setAttribute("occurrence", list);
+			/*req.getSession().setAttribute("exceloccurrence", null);
+			req.getSession().setAttribute("exceloccurrence",excel );*/
 			req.getSession().setAttribute("numberOfOcurrences", numberPage);
 			req.getSession().setAttribute("countOcurrences",
 					(int) quantityOccurrence);
@@ -187,7 +197,7 @@ public class OccurrenceController {
 	}
 
 	public List<OccurrenceBean> getOccurrences(OccurrenceFilterBean bean,
-			int pagination, Long IdUser) {
+			Integer pagination, Long IdUser) {
 
 		List<OccurrenceBean> list = null;
 
@@ -199,6 +209,15 @@ public class OccurrenceController {
 		}
 
 		return list;
+	}
+	
+	@RequestMapping(value = "/listForExcel", method = RequestMethod.GET)
+	public void listForExcel(ModelMap model, HttpServletRequest req,OccurrenceFilterBean bean) {
+		Integer num = null;
+		
+		List<OccurrenceBean> excel = getOccurrences(bean, num,bean.getIdResponsableOccurrence());
+		req.getSession().setAttribute("excelOccurrence", null);
+		req.getSession().setAttribute("excelOccurrence", excel);
 	}
 
 	@SuppressWarnings("unused")
@@ -248,6 +267,7 @@ public class OccurrenceController {
 				
 			
 			model.addAttribute("occurrence", bean);
+			/*model.addAttribute("excelOccurrence", bean);*/
 			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -411,12 +431,4 @@ public class OccurrenceController {
 		return "redirect:../occurrence/maintenance?id=" + hdnId;
 	}
 	
-	@RequestMapping(value = "/excelParce", method = RequestMethod.GET)
-	public void excelParce(String id, HttpServletRequest req,
-			AnnexBean annexBean) throws Exception {
-		
-		List<OccurrenceBean> list = (List<OccurrenceBean>) req.getSession().getAttribute("occurrence");
-		occurrenceService.ExportExcel("Occorrencias - Gekko",list );
-
-	}
 }

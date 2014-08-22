@@ -22,7 +22,7 @@
 	<context:component-scan base-package="com.gekkobt.dao" />
 	<context:component-scan base-package="com.gekkobt.aop" />
 	<context:component-scan base-package="com.gekkobt.thread" />
-	<context:component-scan base-package="com.gekkobt.util" />
+	
 
 
 	<bean id="logAOP" class="com.gekkobt.aop.LogAOP" />
@@ -35,22 +35,35 @@
 					<list>
 						<value>com.gekkobt.controller.*</value>
 						<value>com.gekkobt.service.*</value>
-						<value>com.gekkobt.dao.AnnexDAO*</value>
-						<value>com.gekkobt.dao.HistoricStatusDAO*</value>
-						<value>com.gekkobt.dao.OccurrenceDAO*</value>
-						<value>com.gekkobt.dao.PriorityDAO*</value>
+						<value>com.gekkobt.dao.AnnexDAO.*</value>
+						<value>com.gekkobt.dao.HistoricStatusDAO.*</value>
+						<value>com.gekkobt.dao.OccurrenceDAO.*</value>
+						<value>com.gekkobt.dao.PriorityDAO.*</value>
 						<value>com.gekkobt.dao.ProjectDAO*</value>
-						<value>com.gekkobt.dao.ReportProjectOccurrencesDAO*</value>
-						<value>com.gekkobt.dao.ReportUserOccurrencesDAO*</value>
-						<value>com.gekkobt.dao.StatusDAO*</value>
-						<value>com.gekkobt.dao.TypeOccurrenceDAO*</value>
-						<value>com.gekkobt.dao.UserDao*</value>
+						<value>com.gekkobt.dao.ReportProjectOccurrencesDAO.*</value>
+						<value>com.gekkobt.dao.ReportUserOccurrencesDAO.*</value>
+						<value>com.gekkobt.dao.StatusDAO.*</value>
+						<value>com.gekkobt.dao.TypeOccurrenceDAO.*</value>
+						<value>com.gekkobt.dao.UserDao.*</value>
 					</list>
 				</property>
 			</bean>
 		</property>
 	</bean>
 
+		<bean id="ExcelLogView" class="com.gekkobt.view.ExcelLogView">
+	</bean>
+	<bean id="ExcelMaintenanceView" class="com.gekkobt.view.ExcelMaintenanceView">
+	</bean>
+	<bean id="ExcelOccurrenceView" class="com.gekkobt.view.ExcelOccurrenceView">
+	</bean>
+	<bean id="ExcelReportProjectView" class="com.gekkobt.view.ExcelReportProjectView">
+	</bean>
+	<bean id="ExcelReportUserView" class="com.gekkobt.view.ExcelReportUserView">
+	</bean>
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
 	<mvc:annotation-driven />
 
 	<mvc:default-servlet-handler />

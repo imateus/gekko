@@ -15,7 +15,7 @@
 <!-- <script src="resources/jsPages/insert-occurrence.js"></script> -->
 
 <style type="text/css">
-label {	
+label {
 	cursor: text;
 }
 
@@ -43,7 +43,7 @@ jQuery(function($){
             }
         }); 
     	
-        if ($('#tableQuery').children().length <= 6) {				
+        if ($('#tableQuery').children().length >= 6) {				
 			$("#footer").addClass('pos-absolute');
 		}
   
@@ -273,6 +273,23 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 						$("#finalizationDateParamFrom").val('');
 						$("#finalizationDateParamTo").val('');
 					});
+
+			$(document).on(
+					'click',
+					'#exportExcel',
+					function () {
+						window.open("occurrence/excelOccurrences?idOccurrence=" + $("#idOccurrence").val()
+								+"&IdProjectOccurrence=" + $("#IdProjectOccurrence").find(":selected").get(0).id
+								+"&IdTypeOccurrence=" + $("#IdTypeOccurrence").find(":selected").get(0).id
+								+"&IdStatusOccurrence=" + $("#IdStatusOccurrence").find(":selected").get(0).id
+								+"&IdResponsableOccurrence=" + $("#IdResponsableOccurrence").find(":selected").get(0).id  
+								+"&IdUserOccurrence=" + $("#IdUserOccurrence").find(":selected").get(0).id
+								+"&inclusionDateParamFrom=" + $("#inclusionDateParamFrom").val()
+								+"&inclusionDateParamTo=" + $("#inclusionDateParamTo").val()
+								+"&finalizationDateParamFrom=" + $("#finalizationDateParamFrom").val()
+								+"&finalizationDateParamTo=" +  $("#finalizationDateParamTo").val(), '_blank');
+					});
+			
 </script>
 <body>
 	<div id="main">
@@ -296,21 +313,26 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									<i class="icon-plus"></i>&nbsp; Ocorrência
 								</button>
 							</div>
-							<div class="btn-group">
-								<button href="#" data-toggle="dropdown"
-									class="btn dropdown-toggle">
-									<i class=" icon-external-link"></i> &nbsp;Exportar <span
-										class="icon-sort-down"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="#">Excel</a></li>
-									<li><a href="#">PDF</a></li>
-								</ul>
-							</div>
+								<div class="btn-group">
+									<button data-toggle="dropdown" class="btn dropdown-toggle">
+										<i class=" icon-external-link"></i> &nbsp;Exportar <span
+											class="icon-sort-down"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><input align="justify" type="button" id="exportExcel"
+											value="EXCEL"
+											style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+										</li>
+										<li><input align="justify" type="button" id="exportPDF"
+											value="PDF"
+											style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+										</li>
+									</ul>
+								</div>
 						</div>
 
 						<div class="form-inline actions-toolbar"
-							style="padding: 08px 12px 08px 0px; width:99%;">
+							style="padding: 08px 12px 08px 0px; width: 99%;">
 
 							<div class="row-fluid actions-toolbar-inner">
 								<div class="span1" style="width: 50px;">
@@ -319,8 +341,7 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 								<div class="span1" style="width: 150px;">
 									<input class="numbersOnly" name="idOccurrence"
 										id="idOccurrence" type="text" value="${searchId}"
-										maxlength="5"
-										style="width: 111px;" />
+										maxlength="5" style="width: 111px;" />
 								</div>
 								<div class="span1" style="width: 75px;">
 									<label style=""> Nome projeto</label>
@@ -473,7 +494,8 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 
 						<div id="occurrenceEmpty">
 							<div style="width: 100%; overflow: auto;" id="tableOccurrence">
-								<table id="tableQuery" class="table table-bordered table-striped">
+								<table id="tableQuery"
+									class="table table-bordered table-striped">
 									<thead>
 										<tr>
 											<th>ID<i class="sort"></i>
@@ -529,42 +551,43 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 										</c:forEach>
 									</tbody>
 								</table>
-							
-							<div class="modal fade bs-example-modal-sm" id="deleteOccurrenceModal"
-								tabindex="-1" role="dialog"
-								aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">
-								<div class="modal-dialog modal-sm">
-									<div class="modal-content">
-						
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">
-												<span aria-hidden="true">&times;</span>
-											</button>
-											<h4 class="modal-title" id="ModalLabel">Deletar ocorrência</h4>
-										</div>
-										<div class="modal-body" style="">
-											<div>
-						
-												<div class="txt-fld">
-													<label>Deseja realmente excluir a ocorrência: ID <span
-														id="idExc"></span></label>
-												</div>
-												<br />
+
+								<div class="modal fade bs-example-modal-sm"
+									id="deleteOccurrenceModal" tabindex="-1" role="dialog"
+									aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content">
+
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">
+													<span aria-hidden="true">&times;</span>
+												</button>
+												<h4 class="modal-title" id="ModalLabel">Deletar
+													ocorrência</h4>
 											</div>
-											<div class="modal-footer">
-												<div align="center">
-													<button type="button" class="btn btn-primary"
-														data-dismiss="modal">Não</button>
-													<button id="submitFrmEditStatusOccurrence" type="submit"
-														data-dismiss="modal" class="btn btn-primary"
-														onclick="deleteOccurrence();">Sim</button>
+											<div class="modal-body" style="">
+												<div>
+
+													<div class="txt-fld">
+														<label>Deseja realmente excluir a ocorrência: ID <span
+															id="idExc"></span></label>
+													</div>
+													<br />
+												</div>
+												<div class="modal-footer">
+													<div align="center">
+														<button type="button" class="btn btn-primary"
+															data-dismiss="modal">Não</button>
+														<button id="submitFrmEditStatusOccurrence" type="submit"
+															data-dismiss="modal" class="btn btn-primary"
+															onclick="deleteOccurrence();">Sim</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 							<%-- 	<div class="" id="paginationPage">
 								<div class="pagination pagination-right">
 									<ul>
@@ -592,10 +615,10 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 											<div class="span4">
 												<c:choose>
 													<c:when test="${countOcurrences==1}">
-														<p id="labelPagination">${countOcurrences} resultado</p>
+														<p id="labelPagination">${countOcurrences}resultado</p>
 													</c:when>
 													<c:otherwise>
-														<p id="labelPagination">${countOcurrences} resultados</p>
+														<p id="labelPagination">${countOcurrences}resultados</p>
 													</c:otherwise>
 												</c:choose>
 											</div>
@@ -606,7 +629,8 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 														<ul id="">
 															<li><a>Prev</a></li>
 															<c:forEach begin="1" end="${numberOfOcurrences}" var="i">
-																<li id="li-${i}"><a class="numberPagination"id="btn-${i}">${i}</a></li>
+																<li id="li-${i}"><a class="numberPagination"
+																	id="btn-${i}">${i}</a></li>
 															</c:forEach>
 															<li><a>Next</a></li>
 														</ul>
