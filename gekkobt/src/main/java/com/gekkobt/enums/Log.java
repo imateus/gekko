@@ -1,7 +1,7 @@
 package com.gekkobt.enums;
 
 public enum Log {
-	DEBUG("V", "DEBUG"),
+	DEBUG("D", "DEBUG"),
 	INFO("I", "INFO"),
 	ERROR("E", "ERROR");
 	

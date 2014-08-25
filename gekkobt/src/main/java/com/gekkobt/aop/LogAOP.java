@@ -77,10 +77,10 @@ public class LogAOP implements MethodBeforeAdvice, AfterReturningAdvice {
 				logger.setArgs(args);
 				logger.setLog(log);
 				try{
-					logger.setUserId(user.getUserId());
+					logger.setUserId(String.valueOf(user.getId()));
 					logger.setIp(user.getUserIp());
 				}catch(Exception e){
-					logger.setUserId("DASH");
+					logger.setUserId("GEKKO");
 					logger.setIp("");
 				}
 				logger.start();

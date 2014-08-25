@@ -15,17 +15,7 @@ import com.gekkobt.entity.UserEntity;
 
 @Repository
 public class UserDao extends GenericDAO<UserEntity, Long>{
-/*	private final Connection connection;
 
-	@Autowired
-	public UserDao(DataSource dataSource) {
-		try {
-			this.connection = dataSource.getConnection();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	*/
 	public UserEntity returnUser(UserBean usuario) {
 
 		if (usuario == null) {
@@ -62,16 +52,6 @@ public class UserDao extends GenericDAO<UserEntity, Long>{
 		if (userEmail == null) {
 			throw new IllegalArgumentException("Email nÃ£o deve ser nulo");
 		}
-
-			/*PreparedStatement stmt = this.connection
-					.prepareStatement("select user.userPassword from UserEntity user where user_email = ?");
-
-			stmt.setString(1, userEmail.getUserEmail());
-			ResultSet rs = stmt.executeQuery();
-
-			boolean encontrado = rs.next();
-			rs.close();
-			stmt.close();*/
 
 			TypedQuery<UserEntity> query = em.createQuery(
 					"from UserEntity user where user.userEmail = ?", UserEntity.class);

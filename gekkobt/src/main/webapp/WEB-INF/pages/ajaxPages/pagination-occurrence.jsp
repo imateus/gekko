@@ -16,13 +16,23 @@
 	<div class="span4"></div>
 	<div class="span4">
 		<div class="pagination pagination-right">
-			<c:if test="${numberOfOcurrences >1}">
+			<c:if test="${paginationNumberEnd >1}">
 				<ul id="">
-					<li><a>Prev</a></li>
-					<c:forEach begin="1" end="${numberOfOcurrences}" var="i">
+					<c:if test="${paginationNumberBegin != 1}">
+						<li><a>Prev</a></li>
+					</c:if>
+					<c:forEach begin="${paginationNumberBegin}"
+						end="${paginationNumberEnd}" var="i">
 						<li id="li-${i}"><a class="numberPagination" id="btn-${i}">${i}</a></li>
 					</c:forEach>
-					<li><a>Next</a></li>
+					
+					<c:choose>
+						<c:when test="${numberOfOcurrences != paginationNumberEnd}">
+							<li id="li-${numberOfOcurrences}"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</c:if>
 		</div>

@@ -336,7 +336,6 @@ button {
 							$('#statusOccurrenceForm').prop('disabled', true);
 						} else {
 							closeImportFIle();
-							$("#footer").addClass('pos-absolute');
 							$('#id').prop('disabled', true);
 							$('#statusOccurrenceForm').prop('disabled', true);
 							$('#projectBean').prop('disabled', false);
@@ -377,7 +376,6 @@ button {
 							$('#buttonExport').hide();
 							$('#buttonUpload').hide();
 						} else {
-							$("#footer").addClass('pos-absolute');
 							$('#id').prop('disabled', true);
 							$('#statusOccurrenceForm').prop('disabled', true);
 							$('#projectBean').prop('disabled', true);

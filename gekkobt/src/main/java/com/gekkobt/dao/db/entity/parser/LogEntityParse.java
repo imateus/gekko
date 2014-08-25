@@ -22,12 +22,10 @@ public class LogEntityParse {
 		LogBean bean = new LogBean();
 		
 		bean.setLogDate(entity.getLogDate());
-		bean.setLogDateGlb(entity.getLogDateGlb());
 		bean.setLogId(entity.getLogId());
 		bean.setLogMessageText(entity.getLogMessageText());
 		bean.setLogRequestIpAddr(entity.getLogRequestIpAddr());
 		bean.setLogSourceText(entity.getLogSourceText());
-		bean.setLogSuccessInd(entity.getLogSucessInd());
 		bean.setLogTypeInd(entity.getLogTypeInd());
 		bean.setLogUserId(entity.getLogUserId());
 		bean.setLogTypeName(entity.getLogTypeInd());
@@ -49,12 +47,10 @@ public class LogEntityParse {
 		LogEntity entity = new LogEntity();
 		
 		entity.setLogDate(bean.getLogDate());
-		entity.setLogDateGlb(bean.getLogDateGlb());
 		entity.setLogId(bean.getLogId());
 		entity.setLogMessageText(bean.getLogMessageText());
 		entity.setLogRequestIpAddr(bean.getLogRequestIpAddr());
 		entity.setLogSourceText(bean.getLogSourceText());
-		entity.setLogSucessInd(bean.getLogSuccessInd());
 		entity.setLogTypeInd(bean.getLogTypeInd());
 		entity.setLogUserId(bean.getLogUserId());
 		

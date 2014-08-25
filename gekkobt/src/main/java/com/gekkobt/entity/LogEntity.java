@@ -32,20 +32,14 @@ public class LogEntity implements Serializable {
 	@Column(name="LOG_MESSAGE_TEXT")
 	private String logMessageText;
 
-	@Column(name="LOG_SOURCE_TEXT")
+	@Column(name="LOG_SOURCE_TEXT", precision = 400, length = 400)
 	private String logSourceText;
 
 	@Column(name="LOG_TYPE_IND")
 	private String logTypeInd;
 	
-	@Column(name="LOG_DATE_GLB")
-	private Timestamp logDateGlb;
-	
 	@Column(name="LOG_USER_ID")
 	private String logUserId;
-	
-	@Column(name="LOG_SUCCESS_IND")
-	private String logSucessInd;
 	
 	@Column(name="LOG_REQUEST_IP_ADDR")
 	private String logRequestIpAddr;
@@ -93,28 +87,12 @@ public class LogEntity implements Serializable {
 		this.logTypeInd = logTypeInd;
 	}
 
-	public Timestamp getLogDateGlb() {
-		return logDateGlb;
-	}
-
-	public void setLogDateGlb(Timestamp logDateGlb) {
-		this.logDateGlb = logDateGlb;
-	}
-
 	public String getLogUserId() {
 		return logUserId;
 	}
 
 	public void setLogUserId(String logUserId) {
 		this.logUserId = logUserId;
-	}
-
-	public String getLogSucessInd() {
-		return logSucessInd;
-	}
-
-	public void setLogSucessInd(String logSucessInd) {
-		this.logSucessInd = logSucessInd;
 	}
 
 	public String getLogRequestIpAddr() {

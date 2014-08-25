@@ -16,8 +16,7 @@ import com.gekkobt.entity.LogEntity;
 @Repository
 public class LogDAO extends GenericDAO<LogEntity, Long> {
 
-	public List<LogBean> findLog(Calendar initialDate, Calendar endDate,
-			String userId, String typeInd) {
+	public List<LogBean> findLog(String initialDate, String endDate, String userId) {
 
 		List<LogEntity> listEntity = null;
 		try {
@@ -27,26 +26,17 @@ public class LogDAO extends GenericDAO<LogEntity, Long> {
 			if (!"TODOS".equalsIgnoreCase(userId.toUpperCase()))
 				qlString = qlString + " and LOG.logUserId = :userId ";
 
-			if (!"TODOS".equalsIgnoreCase(typeInd.toUpperCase()))
-				qlString = qlString + " and LOG.logTypeInd = :typeInd ";
-
+		
 			TypedQuery<LogEntity> query = em.createQuery(qlString,
 					LogEntity.class);
 
 			if (!"TODOS".equalsIgnoreCase(userId.toUpperCase()))
 				query.setParameter("userId", userId);
 			
-			if (!"TODOS".equalsIgnoreCase(typeInd.toUpperCase()))
-				query.setParameter("typeInd", typeInd);
 
-			endDate.set(Calendar.HOUR_OF_DAY, 23);
-			endDate.add(Calendar.HOUR, 23);
-			endDate.add(Calendar.MINUTE, 59);
-			endDate.set(Calendar.SECOND, 59);
-			endDate.set(Calendar.MILLISECOND, 999);
 
-			query.setParameter("initialDate", initialDate.getTime(), TemporalType.DATE);
-			query.setParameter("endDate", endDate.getTime(), TemporalType.DATE);
+			query.setParameter("initialDate", initialDate);
+			query.setParameter("endDate", endDate);
 
 			listEntity = query.getResultList();
 			

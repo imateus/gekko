@@ -17,13 +17,10 @@ public class LogBean {
 	
 	@NotEmpty(message = "Data não pode ser nulo.")
 	private Timestamp logDate;
-	
-	private Timestamp logDateGlb;
 	private String logUserId;
 	private String logTypeInd;
 	private String logSourceText;
 	private String logMessageText;
-	private String logSuccessInd;
 	private String logRequestIpAddr;
 	private String logTypeName;
 	
@@ -49,14 +46,6 @@ public class LogBean {
 
 	public void setLogDate(Timestamp logDate) {
 		this.logDate = logDate;
-	}
-
-	public Timestamp getLogDateGlb() {
-		return logDateGlb;
-	}
-
-	public void setLogDateGlb(Timestamp logDateGlb) {
-		this.logDateGlb = logDateGlb;
 	}
 
 	public String getLogUserId() {
@@ -91,14 +80,6 @@ public class LogBean {
 		this.logMessageText = logMessageText;
 	}
 
-	public String getLogSuccessInd() {
-		return logSuccessInd;
-	}
-
-	public void setLogSuccessInd(String logSuccessInd) {
-		this.logSuccessInd = logSuccessInd;
-	}
-
 	public String getLogRequestIpAddr() {
 		return logRequestIpAddr;
 	}
@@ -116,12 +97,10 @@ public class LogBean {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((logDate == null) ? 0 : logDate.hashCode());
-		result = prime * result	+ ((logDateGlb == null) ? 0 : logDateGlb.hashCode());
 		result = prime * result	+ ((logUserId == null) ? 0 : logUserId.hashCode());
 		result = prime * result	+ ((logTypeInd == null) ? 0 : logTypeInd.hashCode());
 		result = prime * result	+ ((logSourceText == null) ? 0 : logSourceText.hashCode());
 		result = prime * result + ((logMessageText == null) ? 0 : logMessageText.hashCode());
-		result = prime * result + ((logSuccessInd == null) ? 0 : logSuccessInd.hashCode());
 		result = prime * result + ((logRequestIpAddr == null) ? 0 : logRequestIpAddr.hashCode());		
 		return result;
 	}
@@ -139,11 +118,6 @@ public class LogBean {
 		if (other.logDate != null)
 				return false;
 		} else if (!logDate.equals(other.logDate))
-			return false;
-		if (logDateGlb == null) {
-			if (other.logDateGlb != null)
-				return false;
-		} else if (!logDateGlb.equals(other.logDateGlb))
 			return false;
 		if (logUserId == null) {
 			if (other.logUserId != null)
@@ -164,11 +138,6 @@ public class LogBean {
 			if (other.logMessageText != null)
 				return false;
 		} else if (!logMessageText.equals(other.logMessageText))
-			return false;
-		if (logSuccessInd == null) {
-			if (other.logSuccessInd != null)
-				return false;
-		} else if (!logSuccessInd.equals(other.logSuccessInd))
 			return false;	
 		if (logRequestIpAddr == null) {
 			if (other.logRequestIpAddr != null)
@@ -182,12 +151,10 @@ public class LogBean {
 	public LogBean clone() {
 		LogBean  clone = new LogBean ();
 		clone.setLogDate(this.logDate);		
-		clone.setLogDateGlb(this.logDateGlb);
 		clone.setLogUserId(this.logUserId);
 		clone.setLogTypeInd(this.logTypeInd);
 		clone.setLogSourceText(this.logSourceText);
 		clone.setLogMessageText(this.logMessageText);
-		clone.setLogSuccessInd(this.logSuccessInd);
 		clone.setLogRequestIpAddr(this.logRequestIpAddr);
 		return clone;
 	}

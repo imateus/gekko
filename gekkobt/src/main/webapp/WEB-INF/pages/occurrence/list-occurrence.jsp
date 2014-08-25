@@ -82,9 +82,9 @@ jQuery(function($){
 	            $(this).parents('.megamenu').find('.megamenu-content').css('background-image','url()').html(megamenuContent);
 	        });
 
-		function renderPagination(){ 
+		function renderPagination(){
  			$(".numberPagination").click(function() {
-					/*$(this).attr("disabled", true);*/			
+					$(this).attr("disabled", true);		
 	    			$("li[id^='li-']").removeClass("active");
 					$(this).parent().addClass("active");
 				$.post("occurrence/" + $(this).text(), {
@@ -317,10 +317,10 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 											value="EXCEL"
 											style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
 										</li>
-										<li><input align="justify" type="button" id="exportPDF"
+										<!-- <li><input align="justify" type="button" id="exportPDF"
 											value="PDF"
 											style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-										</li>
+										</li> -->
 									</ul>
 								</div>
 						</div>
@@ -412,7 +412,6 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 								<div class="span1" style="width: 162px;">
 									<div class="input-append date" data-date="02-01-2014"
 										data-date-format="mm-dd-yyyy">
-
 										<input name="inclusionDateParamFrom"
 											onblur="validationDate(this)" id="inclusionDateParamFrom"
 											type="text" value="${inclusionDateFrom}" style="width: 85px;" />
@@ -488,7 +487,7 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 						<div id="occurrenceEmpty">
 							<div style="width: 100%; overflow: auto;" id="tableOccurrence">
 								<table id="tableQuery"
-									class="table table-bordered table-striped">
+									class="table table-bordered table-striped sorter-shortDate dateFormat-ddmmyyyy">
 									<thead>
 										<tr>
 											<th>ID<i class="sort"></i>
@@ -570,8 +569,7 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
+								</div>							
 							<div>
 								<div class="row-fluid actions-toolbar">
 									<div class="actions-toolbar-inner">
@@ -589,19 +587,31 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 											<div class="span4"></div>
 											<div class="span4">
 												<div class="pagination pagination-right">
-													<c:if test="${numberOfOcurrences >1}">
-														<ul id="">
-															<li><a>Prev</a></li>
-																<c:forEach begin="1" end="${numberOfOcurrences}" var="i">
-																	<li id="li-${i}"><a class="numberPagination"id="btn-${i}">${i}</a></li>
+													<c:if test="${paginationNumberEnd >1}">
+															<ul id="">
+																<c:if test="${paginationNumberBegin != 1}">
+																	<li><a>Prev</a></li>
+																</c:if>
+																<c:forEach begin="${paginationNumberBegin}"
+																	end="${paginationNumberEnd}" var="i">
+																	<li id="li-${i}"><a class="numberPagination" id="btn-${i}">${i}</a></li>
 																</c:forEach>
-															<li><a>Next</a></li>
-														</ul>
-													</c:if>
+
+																<c:choose>
+																	<c:when
+																		test="${numberOfOcurrences != paginationNumberEnd}">
+																		<li id="li-${numberOfOcurrences}"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
+																	</c:when>
+																	<c:otherwise>
+																	</c:otherwise>
+																</c:choose>
+															</ul>
+														</c:if>
 												</div>
 											</div>
 										</div>
 									</div>
+								</div>
 								</div>
 							</div>
 						</div>

@@ -24,20 +24,15 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 		String path = request.getRequestURI();
 		
-
-		// If login screen
 		if (!path.matches("/gekkobt/")
 				&& !path.matches("/gekkobt/login")
 				&& !path.matches("/gekkobt/login/userMake")
 				&& !path.matches("/gekkobt/login/email")
 				&& !path.matches("/gekkobt/login/logout")
 				&& !path.matches("[/gekkobt/](.*)[.].*")) {
-			HandlerMethod handlerMethod = null;
+				
+				HandlerMethod handlerMethod = null;
 
-			UserBean user = (UserBean) request.getSession().getAttribute("userLogged");
-			if(user == null){
-				user = new UserBean();
-			}
 			if (handler instanceof HandlerMethod) {
 				handlerMethod = ((HandlerMethod) handler);
 			}
@@ -45,14 +40,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 				response.sendRedirect("/gekkobt/login");
 				return false;
 			}
-				/* else if (handlerMethod != null
-					&& handlerMethod.getBean() instanceof ControllerInterface) {
-				Functions function = ((ControllerInterface) handlerMethod
-						.getBean()).getFunction();
-				return verifyUserFunction(function);
-			}*/
 		}
-
 		return true;
 	}
 
@@ -60,7 +48,6 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 	public void afterCompletion(HttpServletRequest arg0,
 			HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
-
 	}
 
 	@Override
