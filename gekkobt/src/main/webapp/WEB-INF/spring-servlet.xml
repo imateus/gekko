@@ -39,7 +39,7 @@
 						<value>com.gekkobt.dao.HistoricStatusDAO.*</value>
 						<value>com.gekkobt.dao.OccurrenceDAO.*</value>
 						<value>com.gekkobt.dao.PriorityDAO.*</value>
-						<value>com.gekkobt.dao.ProjectDAO*</value>
+						<value>com.gekkobt.dao.ProjectDAO.*</value>
 						<value>com.gekkobt.dao.ReportProjectOccurrencesDAO.*</value>
 						<value>com.gekkobt.dao.ReportUserOccurrencesDAO.*</value>
 						<value>com.gekkobt.dao.StatusDAO.*</value>

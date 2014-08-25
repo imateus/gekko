@@ -1,6 +1,8 @@
 
 package com.gekkobt.controller.excel;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +16,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-import com.gekkobt.bean.OccurrenceBean;
+import com.gekkobt.bean.ReportUserBean;
+import com.gekkobt.service.ReportUserOccurrencesService;
 import com.gekkobt.view.ExcelReportUserView;
 
 @Controller
-@RequestMapping("/UserOccurrences")
+@RequestMapping("/userOccurrences")
 @SessionAttributes(value = "operations")
 @SuppressWarnings("unchecked")
 public class ExcelReportUserController extends AbstractController {
@@ -26,15 +29,34 @@ public class ExcelReportUserController extends AbstractController {
 	@Autowired
 	private ExcelReportUserView excelReportUserView;
 	
-	@Override
+	@Autowired
+	private ReportUserOccurrencesService reportUserOccurrencesService;
+	
 	@RequestMapping(value = "/excelUserOccurrences", method = RequestMethod.GET)
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response){
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response, String id){
+		
+		List<ReportUserBean> listAllReport = new ArrayList<ReportUserBean>();
+		try {
+			listAllReport = reportUserOccurrencesService.filterReportUser();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if (!id.equals("")) {
+	
+			listAllReport = reportUserOccurrencesService.filterReport(Integer.parseInt(id),
+						listAllReport);
+		}
 		
 		ExcelReportUserView view = new ExcelReportUserView();
 		
-		List<OccurrenceBean> operationList = (List<OccurrenceBean>) request.getSession(true).getAttribute("?");
-		return new ModelAndView(view, "operations", operationList);
+		return new ModelAndView(view, "operations", listAllReport);
 		
+	}
+
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
+			HttpServletResponse arg1) throws Exception {
+		return null;
 	}
 
 }

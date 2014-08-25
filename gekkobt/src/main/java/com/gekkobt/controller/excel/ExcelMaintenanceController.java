@@ -15,26 +15,46 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.gekkobt.bean.OccurrenceBean;
+import com.gekkobt.service.OccurrenceService;
 import com.gekkobt.view.ExcelMaintenanceView;
 
 @Controller
 @RequestMapping("/occurrence/maintenance")
 @SessionAttributes(value = "operations")
-@SuppressWarnings("unchecked")
+
 public class ExcelMaintenanceController extends AbstractController {
 	
 	@Autowired
 	private ExcelMaintenanceView excelMaintenanceView;
 	
-	@Override
-	@RequestMapping(value = "/excelOccurrences", method = RequestMethod.GET)
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response){
+	@Autowired
+	private OccurrenceService occurrenceService;
+	
+	@RequestMapping(value = "/exportExcelMaintenance", method = RequestMethod.GET)
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response,String id){
+		
 		
 		ExcelMaintenanceView view = new ExcelMaintenanceView();
+		try {
+			OccurrenceBean bean = new OccurrenceBean();
+			bean = occurrenceService.findOccurrenceId(Long.parseLong(id));
+			request.getSession().setAttribute("occurrenceExcel", bean);
+			List<OccurrenceBean> operationList=null;
+			return new ModelAndView(view, "operations", bean);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		List<OccurrenceBean> operationList = (List<OccurrenceBean>) request.getSession(true).getAttribute("occurrence");
-		return new ModelAndView(view, "operations", operationList);
+		return null;
 		
+	}
+
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
+			HttpServletResponse arg1) throws Exception {
+		return null;
 	}
 
 }

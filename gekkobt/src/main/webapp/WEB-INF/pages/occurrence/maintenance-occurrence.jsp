@@ -178,7 +178,7 @@ button {
 						});
 					});
 
-	$(document).on('click', '#btnCancelImport', function() {
+	$(document).on('click', '#btnCancelImport', closeImportFIle = function() {
 		$("#btnQuery").hide();
 		$("#fileNameDiv").hide();
 	});
@@ -287,8 +287,6 @@ button {
 				$("#labelAlterStatusDescription").text("");
 				$("#labelDateFinalization").text("");
 				if (validationStatusRequired()) {
-					
-				
 				$.post("alterStatus", {
 					id : $("#hdn-id-ocurrence").val(),
 					'idOccurrenceBean.id' : $("#id").val(),
@@ -337,6 +335,8 @@ button {
 							$('#id').prop('disabled', true);
 							$('#statusOccurrenceForm').prop('disabled', true);
 						} else {
+							closeImportFIle();
+							$("#footer").addClass('pos-absolute');
 							$('#id').prop('disabled', true);
 							$('#statusOccurrenceForm').prop('disabled', true);
 							$('#projectBean').prop('disabled', false);
@@ -377,6 +377,7 @@ button {
 							$('#buttonExport').hide();
 							$('#buttonUpload').hide();
 						} else {
+							$("#footer").addClass('pos-absolute');
 							$('#id').prop('disabled', true);
 							$('#statusOccurrenceForm').prop('disabled', true);
 							$('#projectBean').prop('disabled', true);
@@ -464,6 +465,14 @@ button {
 			}
 		});
 	});
+	
+	$(document).on(
+			'click',
+			'#exportExcel',
+			function () {
+				window.open("maintenance/exportExcelMaintenance?id=" + $("#id").val(), '_blank');
+			});
+	
 </script>
 <title id="titleWindow"></title>
 </head>
@@ -474,7 +483,7 @@ button {
 	<br />
 	<div style="width: 90%; margin: 0px auto;">
 		<div class="page-header">
-			<h1 id="TitlePageEdit"></h1>
+			<h1 style="color: gray;" id="TitlePageEdit"></h1>
 		</div>
 		<div id="messageAlert" class="alert alert-danger fade in not-visible"
 			role="alert">
@@ -488,14 +497,20 @@ button {
 				</button>
 			</div>
 
-			<div class="btn-group" id="">
-				<button href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+			<div class="btn-group">
+				<button data-toggle="dropdown" class="btn dropdown-toggle">
 					<i class=" icon-external-link"></i> &nbsp;Exportar <span
 						class="icon-sort-down"></span>
 				</button>
 				<ul class="dropdown-menu">
-					<li><a href="#">Excel File</a></li>
-					<li><a href="#">Text File</a></li>
+					<li><input align="justify" type="button" id="exportExcel"
+						value="EXCEL"
+						style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+					</li>
+					<!-- <li><input align="justify" type="button" id="exportPDF"
+						value="PDF"
+						style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+					</li> -->
 				</ul>
 			</div>
 			<div class="btn-group" id="">
@@ -658,15 +673,6 @@ button {
 					</select>
 				</div>
 			</div>
-			<!-- <form action="update" method="post" enctype="multipart/form-data"> -->
-			<!-- <div class="control-group" id="buttonAnnex">
-					<label for="fileInput" class="control-label">Anexar
-						arquivos</label>
-					<div class="controls">
-						<input type="file" id="file" name="file" type="file"
-							class="input-file" multiple>
-					</div>
-				</div> -->
 			<br />
 			<c:if test="${annex.size() > 0}">
 				<div>
@@ -728,7 +734,7 @@ button {
 	</div>
 	<!-- Footer -->
 
-	<!-- Modal alter status of occurrence -->
+	<!-- Modal alter status-->
 	<div class="modal fade" id="AlterStatusModal" tabindex="-1"
 		style="display: none;" role="dialog"
 		aria-labelledby="AlterStatusModalLabel" aria-hidden="true">
@@ -782,22 +788,21 @@ button {
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-					<button id="submitFrmEditStatusOccurrence" type="button"
-						class="btn btn-primary">Salvar</button>
+					<button id="submitFrmEditStatusOccurrence" type="button" class="btn btn-primary">Salvar</button>
+					<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end -->
-	<!-- Modal delete annex of occurrence -->
+	<!-- end modal-->
+	
+	<!-- Modal delete annex -->
 
 	<div class="modal fade bs-example-modal-sm" id="deleteOccurrenceModal"
 		style="display: none;" tabindex="-1" role="dialog"
 		aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
-
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span>
@@ -806,26 +811,21 @@ button {
 				</div>
 				<div class="modal-body" style="">
 					<div>
-
 						<div class="txt-fld">
-							<label>Deseja realmente excluir o arquivo: <strong
-								id="idExc"></strong></label>
+							<label>Deseja realmente excluir o arquivo: <strong id="idExc"></strong></label>
 						</div>
 						<br />
 					</div>
-					<div class="modal-footer">
-						<div align="center">
-							<button type="button" class="btn btn-primary"
-								data-dismiss="modal">Não</button>
-							<button id="submitFrmEditStatusAnnex" type="submit"
-								class="btn btn-primary" onclick="deleteOccurrence();">Sim</button>
-						</div>
+				</div>
+				<div class="modal-footer">
+					<div align="center">
+						<button id="submitFrmEditStatusAnnex" type="submit" class="btn btn-primary" onclick="deleteOccurrence();">Sim</button>
+						<button type="button" class="btn" data-dismiss="modal">Não</button>
 					</div>
-
 				</div>
 			</div>
 		</div>
 	</div>
-
+<!-- end modal-->
 </body>
 </html>

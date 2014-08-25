@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +34,7 @@ public class ReportUserOccurrencesController {
 	List<ReportUserBean> listAllReport = new ArrayList<ReportUserBean>();
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String ProjectOccurrences(Model model, ReportUserBean bean)
+	public String ProjectOccurrences(Model model, ReportUserBean bean, HttpServletRequest req)
 			throws NumberFormatException, Exception {
 		
 		model.addAttribute("user", userService.findAll());
@@ -40,9 +42,10 @@ public class ReportUserOccurrencesController {
 
 		if (bean.getResponsibleId() == null) {
 			try {
-				model.addAttribute("reports",
-						reportUserOccurrencesService.filterReportUser());
 				listAllReport = reportUserOccurrencesService.filterReportUser();
+				model.addAttribute("reports", listAllReport);
+				req.getSession().setAttribute("reports", null);
+				req.getSession().setAttribute("reports", listAllReport);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -52,20 +55,23 @@ public class ReportUserOccurrencesController {
 			List<ReportUserBean> listReport = reportUserOccurrencesService.filterReport(bean.getResponsibleId().intValue(),
 							listAllReport);
 			model.addAttribute("reports", listReport);
+			req.getSession().setAttribute("reports", null);
+			req.getSession().setAttribute("reports", listAllReport);
 		}
 
 		return "report/report-user-occurrences";
 	}
 
 	@RequestMapping(value = "/showTableUser", method = RequestMethod.GET)
-	public String showTable(ModelMap model, ReportUserBean bean) {
+	public String showTable(ModelMap model, ReportUserBean bean, HttpServletRequest req) {
 		
 	
 		if (bean.getResponsibleId() == null) {
 			try {
-				model.addAttribute("reports",
-						reportUserOccurrencesService.filterReportUser());
+				model.addAttribute("reports",reportUserOccurrencesService.filterReportUser());
 				listAllReport = reportUserOccurrencesService.filterReportUser();
+				req.getSession().setAttribute("reports", null);
+				req.getSession().setAttribute("reports", listAllReport);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -75,6 +81,8 @@ public class ReportUserOccurrencesController {
 			List<ReportUserBean> listReport = reportUserOccurrencesService.filterReport(bean.getResponsibleId().intValue(),
 							listAllReport);
 			model.addAttribute("reports", listReport);
+			req.getSession().setAttribute("reports", null);
+			req.getSession().setAttribute("reports", listAllReport);
 		}
 	
 		return "ajaxPages/table-occurrence-users";

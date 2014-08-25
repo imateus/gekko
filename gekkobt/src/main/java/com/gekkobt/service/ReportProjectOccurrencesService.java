@@ -35,13 +35,20 @@ public class ReportProjectOccurrencesService {
 
 	@Autowired
 	private HistoricStatusDAO historicStatusDAO;
+	
+	@Autowired
+	private ProjectService projectService;
 
-	public List<ReportProjectBean> filterReportProject(ProjectBean projectBean) throws ParseException {
-		List<ReportProjectBean> listReport = new ArrayList();
+	public List<ReportProjectBean> filterReportProject(ProjectBean projectBean) throws Exception {
+		List<ReportProjectBean> listReport = new ArrayList<ReportProjectBean>();
 		ReportProjectBean reportProjectBean = new ReportProjectBean();
+		ProjectBean bean = new ProjectBean();
 		Long cont = 1L;
 		List<Long> list = reportProjectOccurrencesDAO.filterReportProject(new ProjectEntityParse().beanToEntity(projectBean));
-		
+				
+		bean = projectService.findProjectId(projectBean.getId());
+			
+				reportProjectBean.setNameProject(bean.getProjectName());
 		
 				for (int j = 0; j <= list.size(); j++) {
 					if (j==0||j==3||j==6||j==9) {

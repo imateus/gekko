@@ -45,7 +45,7 @@ button {
 
 </style>
 
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		$('#Id option:eq(1)').prop("selected", true);
 		$("#footer").addClass('pos-absolute');
@@ -57,6 +57,7 @@ button {
 	
 	$(document).on('click', '#filterReport', 
 		function() {
+		$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 		$.get("projectOccurrences/showTable", {
 			Id : $("#Id").find(":selected").get(0).id,
 		}, function(data) {
@@ -64,9 +65,17 @@ button {
 			hasError = handleError(obj);
 			if (!hasError) {
 				$("#tableProjects").html(data);
+				$.unblockUI();
 			}
 		});
 	});
+	
+	$(document).on(
+			'click',
+			'#exportExcel',
+			function () {
+				window.open("projectOccurrences/excelReportProject?id=" + $("#Id").find(":selected").get(0).id, '_blank');
+			});
 	
 </script>
 </head>
@@ -80,13 +89,28 @@ button {
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="page-header"><br />
-						<h1>Ocorrências por projeto</h1>
+						<h1 style="color: gray;">Ocorrências por projeto</h1>
 					</div>
-					
+					<div class="btn-group">
+						<button data-toggle="dropdown" class="btn dropdown-toggle">
+							<i class=" icon-external-link"></i> &nbsp;Exportar <span
+								class="icon-sort-down"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><input align="justify" type="button" id="exportExcel"
+								value="EXCEL"
+								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+							</li>
+							<!-- <li><input align="justify" type="button" id="exportPDF"
+								value="PDF"
+								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+							</li> -->
+						</ul>
+					</div><br><br>
 					<div class="form-inline actions-toolbar">
 
 						<div class="row-fluid actions-toolbar-inner"
-							style="margin-top: 10px;">
+							style="width: 99%;">
 
 							<div class="span1" style="width: 75px;">Projeto</div>
 							<div class="span1" style="width: 160px;">
@@ -121,7 +145,7 @@ button {
 									</th>
 									<th>Alteração de escopo<i class="sort"></i>
 									</th>
-									<th>Ações<i class="sort"></i>
+									<th>Reincidência<i class="sort"></i>
 									</th>
 								</tr>
 

@@ -1,6 +1,7 @@
 
 package com.gekkobt.controller.excel;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,27 +15,44 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-import com.gekkobt.bean.OccurrenceBean;
+import com.gekkobt.bean.ProjectBean;
+import com.gekkobt.bean.ReportProjectBean;
+import com.gekkobt.service.ReportProjectOccurrencesService;
 import com.gekkobt.view.ExcelReportProjectView;
 
 @Controller
 @RequestMapping("/projectOccurrences")
 @SessionAttributes(value = "operations")
-@SuppressWarnings("unchecked")
 public class ExcelReportProjectController extends AbstractController {
 	
 	@Autowired
 	private ExcelReportProjectView excelReportProjectView;
 	
-	@Override
+	@Autowired
+	private ReportProjectOccurrencesService reportProjectOccurrencesService;
+	
 	@RequestMapping(value = "/excelReportProject", method = RequestMethod.GET)
-	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response){
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response, String id) throws Exception{
 		
 		ExcelReportProjectView view = new ExcelReportProjectView();
 		
-		List<OccurrenceBean> operationList = (List<OccurrenceBean>) request.getSession(true).getAttribute("?");
+		ProjectBean projectBean = new ProjectBean();
+		projectBean.setId(Long.parseLong(id));
+	
+		List<ReportProjectBean> operationList = null;
+		try {
+			operationList = reportProjectOccurrencesService.filterReportProject(projectBean);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return new ModelAndView(view, "operations", operationList);
 		
+	}
+
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
+			HttpServletResponse arg1) throws Exception {
+		return null;
 	}
 
 }

@@ -27,7 +27,7 @@
 	<div id="citi-header">
 		<a class="logo pull-left"> <img
 			src="<c:url value="/resources/img/logo.png"/>"
-			style="width: 70px; position: relative; top: -18px; padding: 8px 10px 10px 5px;">
+			style="width: 35px; position: relative; top: -18px; padding: 8px 10px 10px 5px;">
 		</a>
 		<div class="app_logo">
 			<span style="color: white; font-size: 17px; font-weight: bold;">Gekko
@@ -56,8 +56,8 @@
 							<div class="span4">
 								<ul>
 									<li><a href="<c:url value="/userOccurrences"/>">Ocorrências por usuário</a></li>
-									<li><a href="<c:url value="/projectOccurrences"/>"> Ocorrências por
-											projeto</a></li>
+									<li><a href="<c:url value="/projectOccurrences"/>">Ocorrências por projeto</a></li>
+									<li><a href="<c:url value="/log"/>">Logs</a></li>
 								</ul>
 
 							</div>

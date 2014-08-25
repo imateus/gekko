@@ -47,8 +47,9 @@
 
 <body>
 	<div id="citi-header">
-		<a class="logo pull-right"> <img src="assets/img/Logo.png"
-			style="width: 70px; position: relative; top: -20px;" />
+		<a class="logo pull-left"> <img
+			src="<c:url value="/resources/img/logo.png"/>"
+			style="width: 35px; position: relative; top: -18px; padding: 8px 10px 10px 5px;">
 		</a>
 		<div class="app_logo">
 			<span style="color: white; font-size: 17px; font-weight: bold;">Gekko

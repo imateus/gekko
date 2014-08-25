@@ -43,35 +43,33 @@ jQuery(function($){
             }
         }); 
     	
-        if ($('#tableQuery').children().length >= 6) {				
-			$("#footer").addClass('pos-absolute');
+     if ($('#tableQuery').children().length >= 6) {				
+		 $("#footer").addClass('pos-absolute');
 		}
-  
-        
-	 $( "#datepicker1" ).datepicker();
-	 $( "#datepicker2" ).datepicker();
-	 $( "#datepicker3" ).datepicker();
-	 $( "#datepicker4" ).datepicker();
-	/*  $("#labelPagination").text("Showing ${firtsOccurrenceOnPage} a ${qtdOccurrenceOnPage} of ${countOcurrences} Results"); */
-	 renderPagination();
-	 $("#messageAlert").addClass("not-visible");
+   
+		 $( "#datepicker1" ).datepicker();
+		 $( "#datepicker2" ).datepicker();
+		 $( "#datepicker3" ).datepicker();
+		 $( "#datepicker4" ).datepicker();
+	 	renderPagination();
+	 	$("#messageAlert").addClass("not-visible");
 	 
 	 if ("${occurrenceNotFoud}") {
-		$("#occurrenceEmpty").hide();
-		$("#messageAlert").removeClass("not-visible"); 
-		$("#printError").text("${occurrenceNotFoud}");
-		$("#footer").addClass('pos-absolute');
+		 $("#occurrenceEmpty").hide();
+		 $("#messageAlert").removeClass("not-visible"); 
+		 $("#printError").text("${occurrenceNotFoud}");
+		 $("#footer").addClass('pos-absolute');
 	 } 
 	 
-	 $("#inclusionDateParamFrom").mask("99/99/9999");
-	 $("#inclusionDateParamTo").mask("99/99/9999");
-	 $("#finalizationDateParamFrom").mask("99/99/9999");
-	 $("#finalizationDateParamTo").mask("99/99/9999");
-	 $('#IdResponsableOccurrence option:eq(${userLogged.id})').prop("selected", true);
-	        if (location.protocol.indexOf('http')>-1) {
-	            $.getScript('http://www.citigroup.net/search/js/search_rebrand_prod2.js', function(){
-	                if (topSearch && topSearch.createSearch) {
-	                    setTimeout(function(){topSearch.createSearch('top','global-search')},1000);
+		 $("#inclusionDateParamFrom").mask("99/99/9999");
+		 $("#inclusionDateParamTo").mask("99/99/9999");
+		 $("#finalizationDateParamFrom").mask("99/99/9999");
+		 $("#finalizationDateParamTo").mask("99/99/9999");
+		 $('#IdResponsableOccurrence option:eq(${userLogged.id})').prop("selected", true);
+		        if (location.protocol.indexOf('http')>-1) {
+		            $.getScript('http://www.citigroup.net/search/js/search_rebrand_prod2.js', function(){
+		                if (topSearch && topSearch.createSearch) {
+		                    setTimeout(function(){topSearch.createSearch('top','global-search')},1000);
 	                }
 	            });
 	        }
@@ -122,19 +120,18 @@ jQuery(function($){
 										$("#footer").addClass('pos-absolute');
 									}
 								}
-								/* $("#labelPagination").text("Showing ${firtsOccurrenceOnPage} a ${qtdOccurrenceOnPage} of ${countOcurrences} Results"); */
+							});
+								}else{
+									if(obj !=null){
+										$("#printError").text(obj.message);	
+										$("#messageAlert").removeClass('not-visible');
+										$("#footer").addClass('pos-absolute');
+										$("#occurrenceEmpty").hide();
+									}
+								}
+							});						
 						});
-					}else{
-						if(obj !=null){
-							$("#printError").text(obj.message);	
-							$("#messageAlert").removeClass('not-visible');
-							$("#footer").addClass('pos-absolute');
-							$("#occurrenceEmpty").hide();
-						}
-					}
-				});						
-		});
- 	}; 
+ 					}; 
 	  renderPagination(); 
 	  
 	$(document).on('click', '#filterOccurrence',
@@ -299,14 +296,11 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 
 		<div id="body" style="padding: 4px;">
 			<div id="content" style="padding: 5px;">
-
-
 				<div class="row-fluid">
-					<div class="span12">
+					<div class="span12"><br>
 						<div class="page-header">
-							<h1>Lista de ocorrências</h1>
+							<h1 style="color: gray;">Lista de ocorrências</h1>
 						</div>
-
 						<div class="btn-toolbar">
 							<div class="btn-group">
 								<button class="btn" onclick="openPage()">
@@ -330,7 +324,6 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									</ul>
 								</div>
 						</div>
-
 						<div class="form-inline actions-toolbar"
 							style="padding: 08px 12px 08px 0px; width: 99%;">
 
@@ -551,74 +544,45 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 										</c:forEach>
 									</tbody>
 								</table>
-
-								<div class="modal fade bs-example-modal-sm"
-									id="deleteOccurrenceModal" tabindex="-1" role="dialog"
-									aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">
+								<div class="modal fade bs-example-modal-sm" id="deleteOccurrenceModal" tabindex="-1" role="dialog"
+									 aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-sm">
 										<div class="modal-content">
-
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal">
 													<span aria-hidden="true">&times;</span>
 												</button>
-												<h4 class="modal-title" id="ModalLabel">Deletar
-													ocorrência</h4>
+												<h4 class="modal-title" id="ModalLabel">Deletar ocorrência</h4>
 											</div>
 											<div class="modal-body" style="">
 												<div>
-
 													<div class="txt-fld">
-														<label>Deseja realmente excluir a ocorrência: ID <span
-															id="idExc"></span></label>
+														<label>Deseja realmente excluir a ocorrência: ID <span id="idExc"></span></label>
 													</div>
 													<br />
 												</div>
-												<div class="modal-footer">
-													<div align="center">
-														<button type="button" class="btn btn-primary"
-															data-dismiss="modal">Não</button>
-														<button id="submitFrmEditStatusOccurrence" type="submit"
-															data-dismiss="modal" class="btn btn-primary"
-															onclick="deleteOccurrence();">Sim</button>
-													</div>
+											</div>
+											<div class="modal-footer">
+												<div align="center">
+													<button id="submitFrmEditStatusOccurrence" type="submit" data-dismiss="modal" class="btn btn-primary" onclick="deleteOccurrence();">Sim</button>
+													<button type="button" class="btn"data-dismiss="modal">Não</button>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<%-- 	<div class="" id="paginationPage">
-								<div class="pagination pagination-right">
-									<ul>
-										<li><a class="numberPagination">&lt;&lt;</a></li>
-										<c:forEach begin="1" end="${numberOfOcurrences}" var="i">
-									</ul>
-									<ul>
-										<li id="li-${i}"><a class="numberPagination"
-											id="btn-${i}">${i}</a></li>
-									</ul>
-									</c:forEach>
-								</div>
-								<!-- <ul>
-												<li><a href="#">&lt;&lt;</a></li>
-												<li class="active"><a href="#">1</a></li>
-												<li><a class="numberPagination">2</a></li>
-												<li><a class="numberPagination" href="">3</a></li>
-											</ul> -->
-							</div> --%>
 							<div>
 								<div class="row-fluid actions-toolbar">
 									<div class="actions-toolbar-inner">
-
 										<div id="paginationPage">
 											<div class="span4">
 												<c:choose>
 													<c:when test="${countOcurrences==1}">
-														<p id="labelPagination">${countOcurrences}resultado</p>
+														<p id="labelPagination">${countOcurrences} resultado</p>
 													</c:when>
 													<c:otherwise>
-														<p id="labelPagination">${countOcurrences}resultados</p>
+														<p id="labelPagination">${countOcurrences} resultados</p>
 													</c:otherwise>
 												</c:choose>
 											</div>
@@ -628,10 +592,9 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 													<c:if test="${numberOfOcurrences >1}">
 														<ul id="">
 															<li><a>Prev</a></li>
-															<c:forEach begin="1" end="${numberOfOcurrences}" var="i">
-																<li id="li-${i}"><a class="numberPagination"
-																	id="btn-${i}">${i}</a></li>
-															</c:forEach>
+																<c:forEach begin="1" end="${numberOfOcurrences}" var="i">
+																	<li id="li-${i}"><a class="numberPagination"id="btn-${i}">${i}</a></li>
+																</c:forEach>
 															<li><a>Next</a></li>
 														</ul>
 													</c:if>
@@ -647,13 +610,10 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 			</div>
 		</div>
 	</div>
-
+	<!-- footer -->
 	<div class="footer" id="footerDiv">
 		<c:import url="../taglibs/footer.jsp"></c:import>
 	</div>
-
-	<!-- Small modal -->
-	<!-- <div id="mascara"></div>
-	<div style="bottom: 0px; width: 97%;"></div> -->
+	<!-- footer -->
 </body>
 </html>

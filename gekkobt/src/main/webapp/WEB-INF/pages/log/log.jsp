@@ -8,19 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Lista de logs</title>
 <head title="DPT - Gerenciador de Parametros">
-<link href="resources/css/citi-bootstrap.css" rel="stylesheet" />
-<link href="resources/css/brq-prototipo.css" rel="stylesheet" />
-<link href="resources/css/flexigrid.css" rel="stylesheet" />
-<link rel="shortcut icon" href="resources/img/favicon.ico" />
-<link href="resources/css/brq-prototipo-contingencia.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="css/uniform.default.css" media="screen" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-<script src="jquery.uniform.js"></script>
-
-<link href="resources/css/insert-occurrence.css" rel="stylesheet" />
-<script src="resources/js/insert-occurrence.js"></script>
+<c:import url="../taglibs/resources.jsp"></c:import>
 </head>
 
 
@@ -60,51 +48,34 @@
 
 	<!-- Header -->
 	<c:import url="../taglibs/header.jsp"></c:import>
-
-	<div id="main-nav" class="navbar">
-		<div class="navbar-inner">
-			<ul class="nav pull-right">
-				<li class="dropdown"><a href="#" data-toggle="dropdown"
-					class="authentication dropdown-toggle"> <i
-						class="icon-lock icon-white" style="display: inline-block;"></i>Olá:
-						${userLogged.userLogin} <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="${pageContext.request.contextPath}/login/logout"><i
-								class="icon-signout"></i>Sair</a></li>
-					</ul></li>
-			</ul>
-			<ul class="nav">
-				<li class=""><a href="occurrence" title="Home">Ocorrências</a></li>
-
-				<li class="dropdown"><a href="#" data-toggle="dropdown"class"dropdown-toggle">Relatórios<b
-						class="caret"></b></a>
-					<div class="dropdown-menu megamenu" style="width: 400px">
-						<div class="row-fluid">
-							<div class="span4">
-								<ul>
-									<li><a href="userOccurrences">Ocorrências por usuário</a></li>
-									<li><a href="projectOccurrences"> Ocorrências por
-											projeto</a></li>
-								</ul>
-							</div>
-						</div>
-					</div></li>
-			</ul>
-
-		</div>
-	</div>
-
 	<!-- Header -->
+	
 	<div id="body" style="padding: 4px;">
 		<div id="content" style="padding: 5px;">
 			<div class="row-fluid">
-				<div class="span12">
+				<div class="span12"><br>
 					<div class="page-header">
-						<h1>Lista de logs</h1>
-						<br> <a href="login/logout">Sair do sistema</a> <br>
+						<h1 style="color: gray;">Relatório de logs</h1>
 					</div>
-
-					<form class="form-inline actions-toolbar">
+					
+					<div class="btn-group">
+						<button data-toggle="dropdown" class="btn dropdown-toggle">
+							<i class=" icon-external-link"></i> &nbsp;Exportar <span
+								class="icon-sort-down"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><input align="justify" type="button" id="exportExcel"
+								value="EXCEL"
+								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+							</li>
+							<!-- <li><input align="justify" type="button" id="exportPDF"
+								value="PDF"
+								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+							</li> -->
+						</ul>
+					</div><br><br>
+					
+					<div class="form-inline actions-toolbar">
 						<div class="row-fluid actions-toolbar-inner">
 							<div class="span1" style="width: 110px;">
 								<label style="">Evento</label>
@@ -206,7 +177,7 @@
 								</button>
 							</div>
 						</div>
-					</form>
+					</div>
 					<div style="width: 100%; overflow: auto;">
 						<table id="example" class="table table-bordered table-striped">
 							<thead>

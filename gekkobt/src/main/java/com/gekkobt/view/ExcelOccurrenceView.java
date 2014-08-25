@@ -55,11 +55,7 @@ public class ExcelOccurrenceView extends AbstractExcelView {
 		for (OccurrenceBean bean : listBean) {
 			SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
 			HSSFRow row = sheet.createRow(rowNum++);
-			if (bean.getFinalizationDate()==null) {
-				row.createCell(10).setCellValue("");
-			}else{
-				row.createCell(10).setCellValue(formatDate.format(bean.getFinalizationDate()));
-			}
+			
 			row.createCell(0).setCellValue(bean.getId());
 			row.createCell(1).setCellValue(bean.getOccurrenceTitle());
 			row.createCell(2).setCellValue(bean.getOccurrenceDescription());
@@ -70,7 +66,7 @@ public class ExcelOccurrenceView extends AbstractExcelView {
 			row.createCell(7).setCellValue(bean.getOccurrenceUserInclusionBean().getUserName());
 			row.createCell(8).setCellValue(bean.getOccurrenceUserResponsibleBean().getUserName());
 			row.createCell(9).setCellValue(formatDate.format(bean.getInclusionDate()));
-			
+			row.createCell(10).setCellValue(bean.getFinalizationDate() == null ? "":formatDate.format(bean.getFinalizationDate()));
 		}  
 	}      
 	private void creatCell(HSSFWorkbook workbook, HSSFRow rowHeader,String titleCell,int indexCell) {

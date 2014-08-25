@@ -14,6 +14,7 @@ public class ReportProjectBean {
 	private Long QtdError;
 	private Long QtdAlterScope;
 	private Long QtdRecurrence;
+	private String NameProject;
 	
 	public Long getIdStatus() {
 		return IdStatus;
@@ -45,5 +46,10 @@ public class ReportProjectBean {
 	public void setDescriptionStatus(String descriptionStatus) {
 		DescriptionStatus = descriptionStatus;
 	}
-	
+	public String getNameProject() {
+		return NameProject;
+	}
+	public void setNameProject(String nameProject) {
+		NameProject = nameProject;
+	}
 }

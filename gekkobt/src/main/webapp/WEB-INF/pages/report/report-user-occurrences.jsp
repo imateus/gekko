@@ -27,34 +27,6 @@ button {
 
 </style>
 <script type="text/javascript">
-	/* $(document).ready(function() { */
-	/* alert('${dataChange.dataChange}');
-	$("#sidebar").accordion({
-		collapsible : true
-	});
-
-	$('#tbBankAccount').flexigrid({
-		width : 799,
-		singleSelect : true,
-		buttons : [ {
-			name : 'Adicionar',
-		}, {
-			separator : true
-		}, {
-			name : 'Aprovar',
-		}, {
-			separator : true
-		} ]
-	}); */
-
-	/* 		$("#btnFiltrar").click(function() {
-	 var idSelected = $("#responsibleId").val();
-	 $("#idDoUsuario").val(idSelected);
-	 $("#meuFormulario").submit();
-	 });
-	 });
-	 */
-	 
 	 $(document).ready(function() { 
 		 $("#footer").addClass('pos-absolute');
 	 });
@@ -79,10 +51,17 @@ button {
 				hasError = handleError(obj);
 				if (!hasError) {
 					$("#tableUsers").html(data);
+					$.unblockUI();
 				}
 			});
 		});
-	$.unblockUI();
+	
+	$(document).on(
+			'click',
+			'#exportExcel',
+			function () {
+				window.open("userOccurrences/excelUserOccurrences?id=" + $("#responsibleId").find(":selected").get(0).id, '_blank');
+			});
 	
 </script>
 
@@ -100,12 +79,29 @@ button {
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="page-header">
-						<h1>Ocorrências por usuário</h1>
+						<h1 style="color: gray;">Ocorrências por usuário</h1>
 					</div>
+					<div class="btn-group">
+						<button data-toggle="dropdown" class="btn dropdown-toggle">
+							<i class=" icon-external-link"></i> &nbsp;Exportar <span
+								class="icon-sort-down"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><input align="justify" type="button" id="exportExcel"
+								value="EXCEL"
+								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+							</li>
+							<!-- <li><input align="justify" type="button" id="exportPDF"
+								value="PDF"
+								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
+							</li> -->
+						</ul>
+					</div>
+					<br><br>
 					<div class="form-inline actions-toolbar">
 
 						<div class="row-fluid actions-toolbar-inner"
-							style="margin-top: 10px;">
+							style="width: 99%;">
 
 							<div class="span1" style="width: 75px;">Usuário:</div>
 							<div class="span1" style="width: 160px;">

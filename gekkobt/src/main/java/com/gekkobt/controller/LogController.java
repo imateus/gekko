@@ -11,6 +11,7 @@ public class LogController {
 
 	@RequestMapping("")
 	public String ProjectOccurrences() {
+		
 		return "log/log";
 	}
 }

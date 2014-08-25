@@ -226,6 +226,7 @@ public class OccurrenceService {
 		return bean;
 	}
 	
+	
 	public AnnexBean findAnnexId(Long id) throws Exception {
 		AnnexBean bean = new AnnexEntityParse()
 				.entityToBean(annexDAO.findById(id));
@@ -253,15 +254,6 @@ public class OccurrenceService {
 		return occurrenceDAO.sizeOfList(bean,IdUserlogged);
 	}
 	
-/*	public List<OccurrenceBean> filterUsersOccurrences(Long IdOccurrence)
-			throws ParseException {
-		
-		List<OccurrenceBean> list = occurrenceDAO.filterUserOccurrences(IdOccurrence);
-		
-		return list;
-	}*/
-	
-
 	
 	public AnnexBean upload(MultipartFile file,long IdOcurrence,
 			UserBean userBean) throws Exception {

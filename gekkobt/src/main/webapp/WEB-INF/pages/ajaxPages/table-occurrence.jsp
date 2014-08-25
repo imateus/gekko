@@ -60,7 +60,6 @@
 										</c:forEach>
 									</tbody>
 								</table>
-							
 							<div class="modal fade bs-example-modal-sm" id="deleteOccurrenceModal"
 								tabindex="-1" role="dialog"
 								aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">

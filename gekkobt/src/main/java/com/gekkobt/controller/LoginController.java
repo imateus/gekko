@@ -24,7 +24,7 @@ public class LoginController {
 
 	@RequestMapping("")
 	public String loginForm() {
-		return "login123";
+		return "loginForm";
 	}
 
 	@RequestMapping("/userMake")
