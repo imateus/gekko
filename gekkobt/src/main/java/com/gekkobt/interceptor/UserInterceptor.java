@@ -26,7 +26,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 		
 		if (!path.matches("/gekkobt/")
 				&& !path.matches("/gekkobt/login")
-				&& !path.matches("/gekkobt/login/userMake")
+				&& !path.matches("/gekkobt/login/loginForm")
 				&& !path.matches("/gekkobt/login/email")
 				&& !path.matches("/gekkobt/login/logout")
 				&& !path.matches("[/gekkobt/](.*)[.].*")) {

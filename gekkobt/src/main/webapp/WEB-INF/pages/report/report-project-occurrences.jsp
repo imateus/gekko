@@ -93,29 +93,17 @@ button {
 					</div>
 					<div class="btn-group">
 						<button data-toggle="dropdown" class="btn dropdown-toggle">
-							<i class=" icon-external-link"></i> &nbsp;Exportar <span
-								class="icon-sort-down"></span>
+							<i class=" icon-external-link"></i> &nbsp;Exportar <span class="icon-sort-down"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><input align="justify" type="button" id="exportExcel"
-								value="EXCEL"
-								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-							</li>
-							<!-- <li><input align="justify" type="button" id="exportPDF"
-								value="PDF"
-								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-							</li> -->
+							<li><input align="justify" type="button" id="exportExcel" value="EXCEL" style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;"></li>
 						</ul>
 					</div><br><br>
 					<div class="form-inline actions-toolbar">
-
-						<div class="row-fluid actions-toolbar-inner"
-							style="width: 99%;">
-
+						<div class="row-fluid actions-toolbar-inner" style="width: 99%;">
 							<div class="span1" style="width: 75px;">Projeto</div>
 							<div class="span1" style="width: 160px;">
-								<select name="Id" style="width: 126px;"
-									id="Id">
+								<select name="Id" style="width: 126px;" id="Id">
 									<option value="">Todos...</option>
 									<c:forEach items="${project}" var="project">
 										<option id="${project.id}">
@@ -130,34 +118,25 @@ button {
 								</button>
 							</div>
 						</div>
-
-
 					</div >
 					<div style="width: 100%; overflow: auto;" id=tableProjects>
-
-						<table id="tbReportProject"
-							class="table table-bordered table-striped">
+						<table id="tbReportProject" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Status<i class="sort"></i>
-									</th>
-									<th>Erro<i class="sort"></i>
-									</th>
-									<th>Alteração de escopo<i class="sort"></i>
-									</th>
-									<th>Reincidência<i class="sort"></i>
-									</th>
+									<th>Status<i class="sort"></i></th>
+									<th>Erro<i class="sort"></i></th>
+									<th>Alteração de escopo<i class="sort"></i></th>
+									<th>Reincidência<i class="sort"></i></th>
 								</tr>
-
 							</thead>
 							<tbody>															
 								<c:forEach items="${reportsProject}" var="report">
 									<tr>
-									<th>${report.descriptionStatus}</th>
-									<td>${report.qtdError}</td>
-									<td>${report.qtdAlterScope}</td>
-									<td>${report.qtdRecurrence}</td>
-								</tr>
+										<th>${report.descriptionStatus}</th>
+										<td>${report.qtdError}</td>
+										<td>${report.qtdAlterScope}</td>
+										<td>${report.qtdRecurrence}</td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -167,8 +146,8 @@ button {
 			</div>
 		</div>
 	</div>
-	<!-- Footer -->
-		<c:import url="../taglibs/footer.jsp"></c:import>
-	<!-- Footer -->
+<!-- Footer -->
+	<c:import url="../taglibs/footer.jsp"></c:import>
+<!-- Footer -->
 </body>
 </html>

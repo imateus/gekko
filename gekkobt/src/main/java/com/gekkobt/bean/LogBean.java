@@ -3,6 +3,7 @@ package com.gekkobt.bean;
 import java.sql.Timestamp;
 
 import javax.persistence.Id;
+import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,7 +18,9 @@ public class LogBean {
 	
 	@NotEmpty(message = "Data não pode ser nulo.")
 	private Timestamp logDate;
-	private String logUserId;
+	
+	@Valid
+	private UserBean userBean;
 	private String logTypeInd;
 	private String logSourceText;
 	private String logMessageText;
@@ -48,12 +51,12 @@ public class LogBean {
 		this.logDate = logDate;
 	}
 
-	public String getLogUserId() {
-		return logUserId;
+	public UserBean getUserBean() {
+		return userBean;
 	}
 
-	public void setLogUserId(String logUserId) {
-		this.logUserId = logUserId;
+	public void setUserBean(UserBean userBean) {
+		this.userBean = userBean;
 	}
 
 	public String getLogTypeInd() {
@@ -97,7 +100,7 @@ public class LogBean {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((logDate == null) ? 0 : logDate.hashCode());
-		result = prime * result	+ ((logUserId == null) ? 0 : logUserId.hashCode());
+		result = prime * result	+ ((userBean.getId() == null) ? 0 : userBean.getId().hashCode());
 		result = prime * result	+ ((logTypeInd == null) ? 0 : logTypeInd.hashCode());
 		result = prime * result	+ ((logSourceText == null) ? 0 : logSourceText.hashCode());
 		result = prime * result + ((logMessageText == null) ? 0 : logMessageText.hashCode());
@@ -119,10 +122,10 @@ public class LogBean {
 				return false;
 		} else if (!logDate.equals(other.logDate))
 			return false;
-		if (logUserId == null) {
-			if (other.logUserId != null)
+		if (userBean.getId() == null) {
+			if (other.userBean.getId() != null)
 				return false;
-		} else if (!logUserId.equals(other.logUserId))
+		} else if (!userBean.getId().equals(other.userBean.getId()))
 			return false;
 		if (logTypeInd == null) {
 			if (other.logTypeInd != null)
@@ -151,7 +154,7 @@ public class LogBean {
 	public LogBean clone() {
 		LogBean  clone = new LogBean ();
 		clone.setLogDate(this.logDate);		
-		clone.setLogUserId(this.logUserId);
+		clone.setUserBean(this.userBean);
 		clone.setLogTypeInd(this.logTypeInd);
 		clone.setLogSourceText(this.logSourceText);
 		clone.setLogMessageText(this.logMessageText);

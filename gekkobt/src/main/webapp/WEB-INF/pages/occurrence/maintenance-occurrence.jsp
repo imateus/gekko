@@ -57,14 +57,11 @@ button {
 
 <script>
 	function verificar() {
-
 		var tecla = window.event.keyCode;
-
 		if (tecla == 226) {
 			event.keyCode = 0;
 			event.returnValue = false;
 		}
-
 	}
 
 	function validationField(param, field) {
@@ -76,43 +73,30 @@ button {
 	}
 
 	function validationRequired() {
-		if (!validationField($("#occurrenceTitle").val(),
-				"labelOccurrenceTitle")
-				| (!validationField($("#occurrenceDescription").val(),
-						"labelOccurrenceDescription"))
-				| (!validationField($("#occurrenceUserResponsibleBean").find(
-						":selected").get(0).id, "labelOccurrenceResponsible"))
-				| (!validationField(
-						$("#priorityBean").find(":selected").get(0).id,
-						"labelOccurrencePriority"))
-				| (!validationField(
-						$("#projectBean").find(":selected").get(0).id,
-						"labelOccurrenceProject"))
-				| (!validationField($("#typeOccurrenceBean").find(":selected")
-						.get(0).id, "labelOccurrenceType"))) {
+		if (!validationField($("#occurrenceTitle").val(),"labelOccurrenceTitle")
+				| (!validationField($("#occurrenceDescription").val(),"labelOccurrenceDescription"))
+				| (!validationField($("#occurrenceUserResponsibleBean").find(":selected").get(0).id, "labelOccurrenceResponsible"))
+				| (!validationField($("#priorityBean").find(":selected").get(0).id,"labelOccurrencePriority"))
+				| (!validationField($("#projectBean").find(":selected").get(0).id,"labelOccurrenceProject"))
+				| (!validationField($("#typeOccurrenceBean").find(":selected").get(0).id, "labelOccurrenceType"))) {
 			return false;
 		}
 		return true;
 	}
 
 	function validationStatusRequired() {
-		if (!validationField($("#statusOccurrenceEdit").find(":selected")
-				.get(0).id, "labelAlterStatus")
-				| (!validationField($("#historicJustification").val(),
-						"labelAlterStatusDescription"))
-				| (!validationField($("#dateChange").val(),
-						"labelDateFinalization"))) {
+		if (!validationField($("#statusOccurrenceEdit").find(":selected").get(0).id, "labelAlterStatus")
+				| (!validationField($("#historicJustification").val(),"labelAlterStatusDescription"))
+				| (!validationField($("#dateChange").val(),"labelDateFinalization"))) {
 			return false;
 		}
 		return true;
 	}
 
 	function validationDate(inp) {
-
 		var pattern = new RegExp(
 				"(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|13|14|15|16|17|18|19|20)\\d\\d)",
 				"m");
-
 		if (pattern.test(inp.value) == false) {
 			inp.value = "";
 		}
@@ -121,7 +105,6 @@ button {
 	$(document)
 			.ready(
 					function() {
-						/* $( "#datepicker1" ).datepicker(); */
 						$("#dateChange").mask("99/99/9999");
 						$("#filePath").click(function() {
 							var filePath = $(this).attr("href");
@@ -135,44 +118,27 @@ button {
 						$("#fileNameDiv").hide();
 
 						$("#file")
-								.on(
-										'change',
+								.on('change',
 										function(e) {
 											var fsize = $('#file')[0].files[0].size;
 											if (fsize > 5242880) //do something if file size more than 5 mb (5242880)
 											{
-												$("#messageAlert").removeClass(
-														"not-visible");
-												$("#messageAlert").removeClass(
-														"alert-danger");
-												$("#messageAlert").addClass(
-														"alert-danger");
-												$("#messageAlert")
-														.text(
-																"Seu arquivo excedeu o tamanho máximo de 5MB, atualmente seu aquivo possui: "
-																		+ parseInt(
-																				((fsize / 1000) / 1000),
-																				10)
-																		+ "MB");
-
+												$("#messageAlert").removeClass("not-visible");
+												$("#messageAlert").removeClass("alert-danger");
+												$("#messageAlert").addClass("alert-danger");
+												$("#messageAlert").text("Seu arquivo excedeu o tamanho máximo de 5MB, atualmente seu aquivo possui: " + parseInt(((fsize / 1000) / 1000),10) + "MB");
 											} else {
-												$("#messageAlert").addClass(
-														"not-visible");
+												$("#messageAlert").addClass("not-visible");
 												var valuePath = $(this).val();
-												var valueSplited = valuePath
-														.split("\\");
-												$("#pathFile").text(
-														valueSplited[2]);
+												var valueSplited = valuePath.split("\\");
+												$("#pathFile").text(valueSplited[2]);
 												if ($("#pathFile").text() != null) {
-
 													$("#btnQuery").show();
 													$("#fileNameDiv").show();
 													$("#btnConsultar").focus();
 												}
 											}
-
 										});
-
 						$("#btnFile1").click(function() {
 							$("#file").trigger("click");
 						});
@@ -184,8 +150,7 @@ button {
 	});
 
 	$(document)
-			.on(
-					'click',
+			.on('click',
 					'#submitFrmNewOccurrence',
 					function() {
 						var url = null;
@@ -204,80 +169,41 @@ button {
 
 						if (validationRequired()) {
 							var data = new FormData();
-							$
-									.post(
-											url,
-											{
-												"id" : $("#hdn-id-ocurrence")
-														.val(),
-												"occurrenceTitle" : $(
-														"#occurrenceTitle")
-														.val().replace('\\',
-																"/"),
-												"occurrenceDescription" : $(
-														"#occurrenceDescription")
-														.val().replace('\\',
-																"/"),
-												"occurrenceUserResponsibleBean.id" : $(
-														"#occurrenceUserResponsibleBean")
-														.find(":selected").get(
-																0).id,
-												"statusBean.id" : $(
-														"#statusOccurrenceEdit")
-														.find(":selected").get(
-																0).id,
-												"typeOccurrenceBean.id" : $(
-														"#typeOccurrenceBean")
-														.find(":selected").get(
-																0).id,
-												"projectBean.id" : $(
-														"#projectBean").find(
-														":selected").get(0).id,
-												"priorityBean.id" : $(
-														"#priorityBean").find(
-														":selected").get(0).id,
-											},
-											function(data) {
+							$.post(url,{
+										"id" : $("#hdn-id-ocurrence").val(),
+										"occurrenceTitle" : $("#occurrenceTitle").val().replace('\\',"/"),
+										"occurrenceDescription" : $("#occurrenceDescription").val().replace('\\',"/"),
+										"occurrenceUserResponsibleBean.id" : $("#occurrenceUserResponsibleBean").find(":selected").get(0).id,
+										"statusBean.id" : $("#statusOccurrenceEdit").find(":selected").get(0).id,
+										"typeOccurrenceBean.id" : $("#typeOccurrenceBean").find(":selected").get(0).id,
+										"projectBean.id" : $("#projectBean").find(":selected").get(0).id,
+										"priorityBean.id" : $("#priorityBean").find(":selected").get(0).id,
+										},
+										function(data) {
 												obj = handleJSON(data);
 												hasError = handleError(obj);
 												var data = new FormData();
 												if (!hasError) {
-													$("#hdn-id-ocurrence").val(
-															obj.id);
-													document.forms[0].submit();
-													$("#messageAlert")
-															.removeClass(
-																	"not-visible");
-													$("#messageAlert")
-															.removeClass(
-																	"alert-danger");
-													$("#messageAlert")
-															.addClass(
-																	"alert-success");
+													$("#hdn-id-ocurrence").val(obj.id);
+													/* document.forms[0].submit(); */
+													$("#messageAlert").removeClass("not-visible");
+													$("#messageAlert").removeClass("alert-danger");
+													$("#messageAlert").addClass("alert-success");
 													if (url == "insert") {
-														$("#printError")
-																.text(
-																		"Ocorrencia cadastrada com sucesso.");
+														$("#printError").text("Ocorrencia cadastrada com sucesso.");
 													} else {
-														$("#printError")
-																.text(
-																		"Ocorrencia alterada com sucesso.");
+														$("#printError").text("Ocorrencia alterada com sucesso.");
 													}
-													window.location.href = "maintenance?id="
-															+ $(
-																	"#hdn-id-ocurrence")
-																	.val();
+													window.location.href = "maintenance?id=" + $("#hdn-id-ocurrence").val();
 												}
 											});
-						} else {
-							$("#messageAlert").removeClass("not-visible");
-							$("#messageAlert").removeClass("alert-success");
-							$("#messageAlert").addClass("alert-danger");
-							$("#printError")
-									.text(
-											"* campos não preenchidos, favor preencher todos os campos.");
-						}
-					});
+										} else {
+											$("#messageAlert").removeClass("not-visible");
+											$("#messageAlert").removeClass("alert-success");
+											$("#messageAlert").addClass("alert-danger");
+											$("#printError").text("* campos não preenchidos, favor preencher todos os campos.");
+										}
+									});
 
 	$(document).on(
 			'click',
@@ -306,8 +232,7 @@ button {
 					$("#messageAlertStatus").removeClass("not-visible");
 					$("#messageAlertStatus").removeClass("alert-success");
 					$("#messageAlertStatus").addClass("alert-danger");
-					$("#printErrorStatus")
-							.text("* campos não preenchidos, favor preencher todos os campos.");
+					$("#printErrorStatus").text("* campos não preenchidos, favor preencher todos os campos.");
 				}
 			});
 
@@ -315,20 +240,16 @@ button {
 			'click',
 			'#submitReturnOccurrence',
 			function() {
-
 				if ($("#TitlePageEdit").text() == "Detalhe da ocorrência"
 						|| $("#TitlePageEdit").text() == "Inserir ocorrência") {
 					window.location.href = "../occurrence";
 				} else {
-					window.location.href = "maintenance?id="
-							+ $("#hdn-id-ocurrence").val();
+					window.location.href = "maintenance?id=" + $("#hdn-id-ocurrence").val();
 				}
-
 			});
 
 	$(document)
-			.on(
-					'click',
+			.on('click',
 					'#submitFrmEditOccurrence',
 					function() {
 						if ($('#id').val() == null) {
@@ -341,8 +262,7 @@ button {
 							$('#projectBean').prop('disabled', false);
 							$('#occurrenceTitle').prop('disabled', false);
 							$('#occurrenceDescription').prop('disabled', false);
-							$('#occurrenceUserResponsibleBean').prop(
-									'disabled', false);
+							$('#occurrenceUserResponsibleBean').prop('disabled', false);
 							$('#typeOccurrenceBean').prop('disabled', false);
 							$('#priorityBean').prop('disabled', false);
 							$("#TitlePageEdit").html("Alterar Ocorrência");
@@ -352,7 +272,6 @@ button {
 							$('#submitFrmNewOccurrence').show();
 							$('#buttonEdit').hide();
 							$('#buttonExport').hide();
-							
 							$('#projectBean option:eq(${occurrence.projectBean.id})').prop("selected", true);
 							$("#hdn-id-ocurrence").val("${occurrence.id}");
 						}
@@ -381,38 +300,21 @@ button {
 							$('#projectBean').prop('disabled', true);
 							$('#occurrenceTitle').prop('disabled', true);
 							$('#occurrenceDescription').prop('disabled', true);
-							$('#occurrenceUserResponsibleBean').prop(
-									'disabled', true);
+							$('#occurrenceUserResponsibleBean').prop('disabled', true);
 							$('#typeOccurrenceBean').prop('disabled', true);
 							$('#submitFrmNewOccurrence').hide();
 							$('#priorityBean').prop('disabled', true);
-
 							$("#TitlePageEdit").html("Detalhe da ocorrência");
 							$("#titleWindow").html("Detalhe da ocorrência");
 							$('#tbAnnex').show();
-							$(
-									'#projectBean option:eq(${occurrence.projectBean.id})')
-									.prop("selected", true);
-							$(
-									'#occurrenceUserResponsibleBean option:eq(${occurrence.occurrenceUserResponsibleBean.id})')
-									.prop("selected", true);
-							$(
-									'#typeOccurrenceBean option:eq(${occurrence.typeOccurrenceBean.id})')
-									.prop("selected", true);
-							$(
-									'#priorityBean option:eq(${occurrence.priorityBean.id})')
-									.prop("selected", true);
-							$(
-									'#statusOccurrenceForm option:eq(${occurrence.statusBean.id})')
-									.prop("selected", true);
-							$(
-									'#statusOccurrenceEdit option:eq(${occurrence.statusBean.id})')
-									.prop("selected", true);
-							$('#occurrenceTitle').val(
-									"${occurrence.occurrenceTitle}");
-							$('#occurrenceDescription').val(
-									"${occurrence.occurrenceDescription}");
-
+							$('#projectBean option:eq(${occurrence.projectBean.id})').prop("selected", true);
+							$('#occurrenceUserResponsibleBean option:eq(${occurrence.occurrenceUserResponsibleBean.id})').prop("selected", true);
+							$('#typeOccurrenceBean option:eq(${occurrence.typeOccurrenceBean.id})').prop("selected", true);
+							$('#priorityBean option:eq(${occurrence.priorityBean.id})').prop("selected", true);
+							$('#statusOccurrenceForm option:eq(${occurrence.statusBean.id})').prop("selected", true);
+							$('#statusOccurrenceEdit option:eq(${occurrence.statusBean.id})').prop("selected", true);
+							$('#occurrenceTitle').val("${occurrence.occurrenceTitle}");
+							$('#occurrenceDescription').val("${occurrence.occurrenceDescription}");
 						}
 					});
 
@@ -483,8 +385,7 @@ button {
 		<div class="page-header">
 			<h1 style="color: gray;" id="TitlePageEdit"></h1>
 		</div>
-		<div id="messageAlert" class="alert alert-danger fade in not-visible"
-			role="alert">
+		<div id="messageAlert" class="alert alert-danger fade in not-visible" role="alert">
 			<button type="button" class="close" data-dismiss="alert"></button>
 			<h4 id="printError"></h4>
 		</div>
@@ -494,21 +395,12 @@ button {
 					<i class="icon-plus"></i>&nbsp; Ocorrência
 				</button>
 			</div>
-
 			<div class="btn-group">
 				<button data-toggle="dropdown" class="btn dropdown-toggle">
-					<i class=" icon-external-link"></i> &nbsp;Exportar <span
-						class="icon-sort-down"></span>
+					<i class=" icon-external-link"></i> &nbsp;Exportar <span class="icon-sort-down"></span>
 				</button>
 				<ul class="dropdown-menu">
-					<li><input align="justify" type="button" id="exportExcel"
-						value="EXCEL"
-						style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-					</li>
-					<!-- <li><input align="justify" type="button" id="exportPDF"
-						value="PDF"
-						style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-					</li> -->
+					<li><input align="justify" type="button" id="exportExcel" value="EXCEL" style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;"></li>
 				</ul>
 			</div>
 			<div class="btn-group" id="">
@@ -521,29 +413,21 @@ button {
 					<i class="icon-upload-alt"></i> &nbsp;Upload de Aquivos
 				</button>
 			</div>
-
 		</div>
 	</div>
-	<div class="form-inline actions-toolbar"
-		style="width: 90%; margin: 0px auto;" id="fileNameDiv">
+	<div class="form-inline actions-toolbar" style="width: 90%; margin: 0px auto;" id="fileNameDiv">
 		<strong id="pathFile" style="padding: 10px 13px 0 10px;"></strong>
 	</div>
 	<br />
 	<div id="btnQuery" style="width: 90%; margin: 0px auto;">
 		<table>
 			<tr>
-
 				<th>
-					<form action="upload" method="POST" enctype="multipart/form-data"
-						id="fileForm">
-
+					<form action="upload" method="POST" enctype="multipart/form-data" id="fileForm">
 						<button id="btnConsultar" class="btn btn-primary">
 							<i class="glyphicon glyphicon-upload"></i>Importar
 						</button>
-
-						<input type="file" class="input-medium" name="file" id="file"
-							style="display: none; aling: left;"> <input type="hidden"
-							id="hdnId" name="hdnId" value="${occurrence.id}">
+						<input type="file" class="input-medium" name="file" id="file" style="display: none; aling: left;"> <input type="hidden" id="hdnId" name="hdnId" value="${occurrence.id}">
 					</form>
 				</th>
 				<th>
@@ -554,41 +438,30 @@ button {
 			</tr>
 		</table>
 	</div>
-	<!-- </div> -->
-	<form class="form-horizontal form-container"
-		style="width: 90%; margin: 0px auto;">
+	<form class="form-horizontal form-container" style="width: 90%; margin: 0px auto;">
 		<fieldset>
 			<div id="fieldsDetails">
 				<div class="control-group">
-					<label for="input01" class="control-label"><strong
-						class="required"></strong>ID da ocorrência</label>
+					<label for="input01" class="control-label"><strong class="required"></strong>ID da ocorrência</label>
 					<div class="controls">
-						<input id="id" onkeypress="return handleEnter(this, event)"
-							name="id" type="text" value="${occurrence.id}" disabled />
+						<input id="id" onkeypress="return handleEnter(this, event)" name="id" type="text" value="${occurrence.id}" disabled />
 					</div>
 				</div>
-
-
 				<div class="control-group">
-					<label for="select01" class="control-label"> <strong
-						id="labelOccurrenceStatus" class="required"></strong> Status
-					</label>
+					<label for="select01" class="control-label"> <strong id="labelOccurrenceStatus" class="required"></strong> Status</label>
 					<div class="controls">
-						<select class="select01" name="statusOccurrenceForm"
-							id="statusOccurrenceForm">
+						<select class="select01" name="statusOccurrenceForm" id="statusOccurrenceForm">
 							<option value="0">Selecione...</option>
 							<c:forEach items="${status}" var="status">
 								<option id="${status.id}">
 									<c:out value="${status.statusType}"></c:out>
 								</option>
 							</c:forEach>
-						</select> <img style="cursor: pointer;" src="../resources/img/alter.png"
-							title="Alterar status" id="alteterStatus" data-toggle="modal"
-							data-target="#AlterStatusModal">
+						</select> 
+						<img style="cursor: pointer;" src="../resources/img/alter.png" title="Alterar status" id="alteterStatus" data-toggle="modal" data-target="#AlterStatusModal">
 					</div>
 				</div>
 			</div>
-
 			<div id="firstDiv" class="control-group">
 				<label for="select01" class="control-label"> <strong
 					id="labelOccurrenceProject" class="required"></strong>Nome projeto
@@ -605,32 +478,21 @@ button {
 				</div>
 			</div>
 			<div class="control-group">
-				<label for="input01" class="control-label"><strong
-					id="labelOccurrenceTitle" class="required"></strong>Ocorrência</label>
+				<label for="input01" class="control-label"><strong id="labelOccurrenceTitle" class="required"></strong>Ocorrência</label>
 				<div class="controls">
-					<input style="width: 300px;" id="occurrenceTitle" class="inputText"
-						name="occurrenceTitle" type="text" MaxLength="43" size="68"
-						class="input-xlarge" onKeyDown="verificar()">
+					<input style="width: 300px;" id="occurrenceTitle" class="inputText" name="occurrenceTitle" type="text" MaxLength="43" size="68" class="input-xlarge" onKeyDown="verificar()">
 				</div>
 			</div>
 			<div class="control-group">
-				<label for="textarea" class="control-label"><strong
-					id="labelOccurrenceDescription" class="required"></strong>Descrição</label>
+				<label for="textarea" class="control-label"><strong id="labelOccurrenceDescription" class="required"></strong>Descrição</label>
 				<div class="controls">
-					<textarea rows="2" id="occurrenceDescription" maxlength="255"
-						name="occurrenceDescription" class="input-xlarge"
-						style="width: 300px; height: 84px;" onKeyDown="verificar()">
-						</textarea>
+					<textarea rows="2" id="occurrenceDescription" maxlength="255" name="occurrenceDescription" class="input-xlarge" style="width: 300px; height: 84px;" onKeyDown="verificar()"></textarea>
 				</div>
 			</div>
 			<div class="control-group">
-				<label for="select01" class="control-label"> <strong
-					id="labelOccurrenceResponsible" class="required"> </strong>Nome do
-					responsável
-				</label>
+				<label for="select01" class="control-label"> <strong id="labelOccurrenceResponsible" class="required"> </strong>Nome do responsável</label>
 				<div class="controls">
-					<select name="occurrenceUserResponsibleBean.id"
-						id="occurrenceUserResponsibleBean">
+					<select name="occurrenceUserResponsibleBean.id" id="occurrenceUserResponsibleBean">
 						<option id="0">Selecione...</option>
 						<c:forEach items="${users}" var="user">
 							<option id="${user.id}">
@@ -641,10 +503,7 @@ button {
 				</div>
 			</div>
 			<div class="control-group">
-				<label for="select01" class="control-label"> <strong
-					id="labelOccurrenceType" class="required"></strong> Tipo da
-					ocorrência
-				</label>
+				<label for="select01" class="control-label"> <strong id="labelOccurrenceType" class="required"></strong> Tipo da ocorrência</label>
 				<div class="controls">
 					<select name="typeOccurrenceBean.id" id="typeOccurrenceBean">
 						<option id="0">Selecione...</option>
@@ -657,8 +516,7 @@ button {
 				</div>
 			</div>
 			<div class="control-group">
-				<label for="select01" class="control-label"> <strong
-					id="labelOccurrencePriority" class="required"></strong> Prioridade
+				<label for="select01" class="control-label"> <strong id="labelOccurrencePriority" class="required"></strong> Prioridade
 				</label>
 				<div class="controls">
 					<select name="priorityBean.id" id="priorityBean">
@@ -674,20 +532,14 @@ button {
 			<br />
 			<c:if test="${annex.size() > 0}">
 				<div>
-					<table id="tbAnnex" class="table table-bordered table-striped"
-						style="width: 50%;">
+					<table id="tbAnnex" class="table table-bordered table-striped" style="width: 50%;">
 						<thead>
 							<tr>
-								<th>Nome Arquivo<i class="sort"></i>
-								</th>
-								<th>Data de inclusão<i class="sort"></i>
-								</th>
-								<th>Usuário<i class="sort"></i>
-								</th>
-								<th>Ações<i class="sort"></i>
-								</th>
+								<th>Nome Arquivo<i class="sort"></i></th>
+								<th>Data de inclusão<i class="sort"></i></th>
+								<th>Usuário<i class="sort"></i></th>
+								<th>Ações<i class="sort"></i></th>
 							</tr>
-
 						</thead>
 						<tbody>
 							<c:forEach items="${annex}" var="annex">
@@ -711,20 +563,15 @@ button {
 				</div>
 			</c:if>
 		</fieldset>
-
+		
 		<!-- <form action="upload" method="post" enctype="multipart/form-data"> -->
-		<input type="hidden" id="hdn-id-ocurrence" name="hdn-id-ocurrence"
-			value="${idOccurrece}"> <input type="hidden"
-			id="hdn-id-ocurrence" name="hdn-id-ocurrence" value="${idOccurrece}">
-		<input type="hidden" name="hdnIdOcurrence" id="hdnIdOcurrence"
-			value="${occurrence.id}">
+		<input type="hidden" id="hdn-id-ocurrence" name="hdn-id-ocurrence" value="${idOccurrece}"> <input type="hidden" id="hdn-id-ocurrence" name="hdn-id-ocurrence" value="${idOccurrece}">
+		<input type="hidden" name="hdnIdOcurrence" id="hdnIdOcurrence" value="${occurrence.id}">
 		<div class="form-actions">
-			<input class="btn btn-primary" type="button"
-				id="submitFrmNewOccurrence" value="Salvar" />
+			<input class="btn btn-primary" type="button"id="submitFrmNewOccurrence" value="Salvar" />
 			<button id="submitReturnOccurrence" class="btn" type="button">Cancelar</button>
 		</div>
 	</form>
-
 
 	<!-- Footer -->
 	<div>
@@ -738,7 +585,6 @@ button {
 		aria-labelledby="AlterStatusModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span>
@@ -746,8 +592,7 @@ button {
 					<h4 class="modal-title" id="ModalLabel">Alterar status</h4>
 				</div>
 				<div class="modal-body">
-					<div id="messageAlertStatus"
-						class="alert alert-danger fade in not-visible" role="alert">
+					<div id="messageAlertStatus" class="alert alert-danger fade in not-visible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"></button>
 						<h4 id="printErrorStatus"></h4>
 					</div>
@@ -771,8 +616,7 @@ button {
 						</div>
 						<div class="txt-fld">
 							<div>
-								<label><strong id="labelDateFinalization"
-									class="required"></strong>Data de alteração de status:</label>
+								<label><strong id="labelDateFinalization" class="required"></strong>Data de alteração de status:</label>
 							</div>
 							<div class="" style="width: 162px;">
 								<div class="input-append date" data-date="02-01-2014"

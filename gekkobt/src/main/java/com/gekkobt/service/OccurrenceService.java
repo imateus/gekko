@@ -207,7 +207,7 @@ public class OccurrenceService {
 		AnnexBean bean = findAnnexId(idOccurrenceBean);
 		bean.setAnnexDeleted(0);
 		updateAnnex(bean,idOccurrenceBean);
-	}
+	} 
 	
 
 	public List<OccurrenceBean> findAll() {

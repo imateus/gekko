@@ -29,12 +29,12 @@ ControllerInterface {
 	private UserBean user;
 	
 	@RequestMapping("")
-	public String loginForm() {
+	public String login() {
 		return "loginForm";
 	}
 
-	@RequestMapping("/userMake")
-	public String userMake(UserBean userLogin, HttpServletRequest req,
+	@RequestMapping("/loginForm")
+	public String loginForm(UserBean userLogin, HttpServletRequest req,
 			RedirectAttributes redirectAttributes) {
 		
 		UserBean userBean = new UserBean();

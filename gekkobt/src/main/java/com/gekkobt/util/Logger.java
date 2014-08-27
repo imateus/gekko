@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gekkobt.bean.UserBean;
 import com.gekkobt.dao.LogDAO;
 import com.gekkobt.entity.LogEntity;
+import com.gekkobt.entity.UserEntity;
 import com.gekkobt.enums.Log;
 import com.gekkobt.environment.EnvironmentVariables;
 
@@ -99,10 +100,12 @@ public class Logger {
 
 	public void log(String message, String text, Log log, String userId,
 			String ip) {
+		UserEntity  userEntity = new UserEntity();
+		userEntity.setId(Long.parseLong(userId));
 		LogEntity entity = new LogEntity();
 
 		entity.setLogMessageText(message);
-		entity.setLogUserId(userId);
+		entity.setUserEntity(userEntity);
 		entity.setLogRequestIpAddr(ip);
 		entity.setLogSourceText(text);
 		entity.setLogDate(new Timestamp(new java.util.Date().getTime()));

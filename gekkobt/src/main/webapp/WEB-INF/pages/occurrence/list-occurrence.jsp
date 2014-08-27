@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@	taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -30,6 +31,8 @@ label {
 <script>
 /* mask of date input */
 jQuery(function($){
+		$("#li-1").attr("disabled", true);		
+		$("#li-1").addClass("active");
         $("#idOccurrence").keydown(function(event) {
             if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 
                 || event.keyCode == 27 || event.keyCode == 13 
@@ -84,6 +87,7 @@ jQuery(function($){
 
 		function renderPagination(){
  			$(".numberPagination").click(function() {
+ 					var liNumber = $(this).parent().attr("id");
 					$(this).attr("disabled", true);		
 	    			$("li[id^='li-']").removeClass("active");
 					$(this).parent().addClass("active");
@@ -121,18 +125,22 @@ jQuery(function($){
 									}
 								}
 							});
-								}else{
-									if(obj !=null){
-										$("#printError").text(obj.message);	
-										$("#messageAlert").removeClass('not-visible');
-										$("#footer").addClass('pos-absolute');
-										$("#occurrenceEmpty").hide();
-									}
-								}
-							});						
-						});
- 					}; 
-	  renderPagination(); 
+					}else{
+						if(obj !=null){
+							$("#printError").text(obj.message);	
+							$("#messageAlert").removeClass('not-visible');
+							$("#footer").addClass('pos-absolute');
+							$("#occurrenceEmpty").hide();
+						}
+					}
+					$("#"+liNumber).attr("disabled", true);		
+			 		$("#"+liNumber).addClass("active");
+				});	
+				
+			});
+ 		};
+ 					
+				  	renderPagination(); 
 	  
 	$(document).on('click', '#filterOccurrence',
 		filter = function() {
@@ -183,41 +191,41 @@ jQuery(function($){
 					}
 				}
 			});
+		});
 	});
-});
 
-function validationDate(inp){
-
-var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|13|14|15|16|17|18|19|20)\\d\\d)","m");
- 
- if (pattern.test(inp.value)==false) {
-	inp.value="";
- }
-}
+		function validationDate(inp){
+		
+		var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|13|14|15|16|17|18|19|20)\\d\\d)","m");
+		 
+		 if (pattern.test(inp.value)==false) {
+			inp.value="";
+		 }
+		}
            
 /* end */
  	
-  	var filterDelete;
-	function setDeleteOccurrence(btnDelete) {
-		filterDelete = btnDelete;
-		
-		showIdOnDelete(filterDelete);		
-	}
-	
-	function showIdOnDelete(id) {
-		$("#idExc").empty();
-		$("#idExc").append(id);
-	}
+		  	var filterDelete;
+			function setDeleteOccurrence(btnDelete) {
+				filterDelete = btnDelete;
+				
+				showIdOnDelete(filterDelete);		
+			}
+			
+			function showIdOnDelete(id) {
+				$("#idExc").empty();
+				$("#idExc").append(id);
+			}
  	
-	function openPage(param) {
-		var path = "${pageContext.request.contextPath}";
-		if (param == undefined) {
-			window.location.href = path+"/occurrence/maintenance";
-		}else{
-			window.location.href = path+"/occurrence/maintenance?id=" + param;	
-		}
-	}
-	
+			function openPage(param) {
+				var path = "${pageContext.request.contextPath}";
+				if (param == undefined) {
+					window.location.href = path+"/occurrence/maintenance";
+				}else{
+					window.location.href = path+"/occurrence/maintenance?id=" + param;	
+				}
+			}
+			
 			function deleteOccurrence() {
 				$.post("occurrence/delete", {
 					id : filterDelete,
@@ -249,11 +257,11 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									$("#messageAlert").removeClass('not-visible');
 									$("#footer").addClass('pos-absolute');
 									$("#occurrenceEmpty").hide();
-						}		 
-					}
+								}		 
+							}
+						}
+					);
 				}
-			);
-		}
 			
 			$(document).on(
 					'click',
@@ -293,7 +301,6 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 		<!-- Header -->
 		<c:import url="../taglibs/header.jsp"></c:import>
 		<!-- Header -->
-
 		<div id="body" style="padding: 4px;">
 			<div id="content" style="padding: 5px;">
 				<div class="row-fluid">
@@ -313,36 +320,23 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 											class="icon-sort-down"></span>
 									</button>
 									<ul class="dropdown-menu">
-										<li><input align="justify" type="button" id="exportExcel"
-											value="EXCEL"
-											style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-										</li>
-										<!-- <li><input align="justify" type="button" id="exportPDF"
-											value="PDF"
-											style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-										</li> -->
+										<li><input align="justify" type="button" id="exportExcel" value="EXCEL" style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;"></li>
 									</ul>
 								</div>
-						</div>
-						<div class="form-inline actions-toolbar"
-							style="padding: 08px 12px 08px 0px; width: 99%;">
-
+							</div>
+						<div class="form-inline actions-toolbar" style="padding: 08px 12px 08px 0px; width: 99%;">
 							<div class="row-fluid actions-toolbar-inner">
 								<div class="span1" style="width: 50px;">
 									<label style="">ID</label>
 								</div>
 								<div class="span1" style="width: 150px;">
-									<input class="numbersOnly" name="idOccurrence"
-										id="idOccurrence" type="text" value="${searchId}"
-										maxlength="5" style="width: 111px;" />
+									<input class="numbersOnly" name="idOccurrence" id="idOccurrence" type="text" value="${searchId}" maxlength="5" style="width: 111px;" />
 								</div>
 								<div class="span1" style="width: 75px;">
 									<label style=""> Nome projeto</label>
 								</div>
 								<div class="span1" style="width: 160px;">
-
-									<select name="IdProjectOccurrence" style="width: 126px;"
-										id="IdProjectOccurrence">
+									<select name="IdProjectOccurrence" style="width: 126px;" id="IdProjectOccurrence">
 										<option value="">Todos...</option>
 										<c:forEach items="${project}" var="project">
 											<option id="${project.id}">
@@ -355,8 +349,7 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									<label style=""> Tipo ocorrência</label>
 								</div>
 								<div class="span1" style="width: 160px;">
-									<select name="IdTypeOccurrence" style="width: 126px;"
-										id="IdTypeOccurrence">
+									<select name="IdTypeOccurrence" style="width: 126px;" id="IdTypeOccurrence">
 										<option value="">Todos...</option>
 										<c:forEach items="${typeOccurrence}" var="occurrence">
 											<option id="${occurrence.id}">
@@ -369,8 +362,7 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									<label style=""> Status</label>
 								</div>
 								<div class="span1" style="width: 160px;">
-									<select name="IdStatusOccurrence" style="width: 126px;"
-										id="IdStatusOccurrence">
+									<select name="IdStatusOccurrence" style="width: 126px;" id="IdStatusOccurrence">
 										<option value="">Todos...</option>
 										<c:forEach items="${status}" var="status">
 											<option id="${status.id}">
@@ -380,12 +372,10 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									</select>
 								</div>
 							</div>
-							<div class="row-fluid actions-toolbar-inner"
-								style="margin-top: 10px;">
+							<div class="row-fluid actions-toolbar-inner" style="margin-top: 10px;">
 								<div class="span1" style="width: 50px;">Usuário</div>
 								<div class="span1" style="width: 150px;">
-									<select name="IdUserOccurrence" style="width: 126px;"
-										id="IdUserOccurrence">
+									<select name="IdUserOccurrence" style="width: 126px;" id="IdUserOccurrence">
 										<option value="">Todos...</option>
 										<c:forEach items="${occurrenceUserInclusion}" var="user">
 											<option id="${user.id}">
@@ -396,8 +386,7 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 								</div>
 								<div class="span1" style="width: 75px;">Responsável</div>
 								<div class="span1" style="width: 160px;">
-									<select name="IdResponsableOccurrence" style="width: 126px;"
-										id="IdResponsableOccurrence">
+									<select name="IdResponsableOccurrence" style="width: 126px;" id="IdResponsableOccurrence">
 										<option value="">Todos...</option>
 										<c:forEach items="${occurrenceUserResponsible}" var="user">
 											<option id="${user.id}">
@@ -410,30 +399,21 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									<label> Data reportada de:</label>
 								</div>
 								<div class="span1" style="width: 162px;">
-									<div class="input-append date" data-date="02-01-2014"
-										data-date-format="mm-dd-yyyy">
-										<input name="inclusionDateParamFrom"
-											onblur="validationDate(this)" id="inclusionDateParamFrom"
-											type="text" value="${inclusionDateFrom}" style="width: 85px;" />
-										<span class="add-on"><i id="datepicker1"
-											class="icon-th"></i></span>
+									<div class="input-append date">
+										<input name="inclusionDateParamFrom" onblur="validationDate(this)" id="inclusionDateParamFrom" type="text" value="${inclusionDateFrom}" style="width: 85px;" />
+										<span class="add-on"><i id="datepicker1" class="icon-th"></i></span>
 									</div>
 								</div>
 								<div class="span1" style="width: 30px;">
 									<label> Até:</label>
 								</div>
 								<div class="span1" style="width: 105px;">
-									<div class="input-append date" id="Div2" data-date="02-01-2014"
-										data-date-format="mm-dd-yyyy">
-										<input name="inclusionDateParamTo" id="inclusionDateParamTo"
-											onblur="validationDate(this)" type="text"
-											value="${inclusionDateUtil}" style="width: 85px;" /> <span
-											class="add-on"><i id="datepicker2" class="icon-th"></i></span>
+									<div class="input-append date" id="Div2">
+										<input name="inclusionDateParamTo" id="inclusionDateParamTo" onblur="validationDate(this)" type="text" value="${inclusionDateUtil}" style="width: 85px;" /> <span class="add-on"><i id="datepicker2" class="icon-th"></i></span>
 									</div>
 								</div>
 							</div>
-							<div class="row-fluid actions-toolbar-inner"
-								style="margin-top: 10px;">
+							<div class="row-fluid actions-toolbar-inner" style="margin-top: 10px;">
 								<div class="span1" style="width: 110px;"></div>
 								<div class="span1" style="width: 105px;"></div>
 								<div class="span1" style="width: 75px;"></div>
@@ -442,31 +422,20 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 									<label> Data resolvida de:</label>
 								</div>
 								<div class="span1" style="width: 162px;">
-									<div class="input-append date" data-date="02-01-2014"
-										data-date-format="mm-dd-yyyy">
-										<input name="finalizationDateParamFrom"
-											onblur="validationDate(this)" id="finalizationDateParamFrom"
-											type="text" value="${finalizationDateFrom}"
-											style="width: 85px;" /> <span class="add-on"><i
-											id="datepicker3" class="icon-th"></i></span>
+									<div class="input-append date">
+										<input name="finalizationDateParamFrom" onblur="validationDate(this)" id="finalizationDateParamFrom" type="text" value="${finalizationDateFrom}" style="width: 85px;" /> <span class="add-on"><i id="datepicker3" class="icon-th"></i></span>
 									</div>
 								</div>
 								<div class="span1" style="width: 30px;">
 									<label> Até:</label>
 								</div>
 								<div class="span1" style="width: 70px;">
-									<div class="input-append date" id="Div2" data-date="02-01-2014"
-										data-date-format="mm-dd-yyyy">
-										<input name="finalizationDateParamFrom"
-											onblur="validationDate(this)" id="finalizationDateParamTo"
-											type="text" value="${finalizationDateUtil}"
-											style="width: 85px;" /> <span class="add-on"><i
-											id="datepicker4" class="icon-th"></i></span>
+									<div class="input-append date" id="Div2">
+										<input name="finalizationDateParamFrom" onblur="validationDate(this)" id="finalizationDateParamTo" type="text" value="${finalizationDateUtil}" style="width: 85px;" /> <span class="add-on"><i id="datepicker4" class="icon-th"></i></span>
 									</div>
 								</div>
 								<div class="span2" style="margin-left: 60px; float: right;">
-									<button id="filterOccurrence" id="filterOccurrence"
-										class="btn btn-primary">
+									<button id="filterOccurrence" id="filterOccurrence" class="btn btn-primary">
 										<i class="icon-filter icon-white"></i>&nbsp;Filtrar
 									</button>
 									<button class="btn" id="cleanFilters">
@@ -477,13 +446,10 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 						</div>
 						<div id="messageAlert">
 							<div class="alert alert-danger fade in" role="alert">
-								<button type="button" class="close" data-dismiss="alert">
-
-								</button>
+								<button type="button" class="close" data-dismiss="alert"></button>
 								<h4 id="printError"></h4>
 							</div>
 						</div>
-
 						<div id="occurrenceEmpty">
 							<div style="width: 100%; overflow: auto;" id="tableOccurrence">
 								<table id="tableQuery"
@@ -535,16 +501,15 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 												<td>${occurrence.typeOccurrenceBean.occurenceType}</td>
 												<td>${occurrence.statusBean.statusType}</td>
 												<td>${occurrence.priorityBean.priorityType}</td>
-												<td>${occurrence.inclusionDate}</td>
-												<td>${occurrence.finalizationDate}</td>
+												<td><fmt:formatDate pattern="dd/MM/yyyy" value="${occurrence.inclusionDate}" /></td>
+												<td ><fmt:formatDate pattern="dd/MM/yyyy" value="${occurrence.finalizationDate}" /></td>
 												<td>${occurrence.occurrenceUserInclusionBean.userName}</td>
 												<td>${occurrence.occurrenceUserResponsibleBean.userName}</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-								<div class="modal fade bs-example-modal-sm" id="deleteOccurrenceModal" tabindex="-1" role="dialog"
-									 aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">
+								<div class="modal fade bs-example-modal-sm" id="deleteOccurrenceModal" tabindex="-1" role="dialog" aria-labelledby="deleteOccurrenceModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-sm">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -588,30 +553,27 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 											<div class="span4">
 												<div class="pagination pagination-right">
 													<c:if test="${paginationNumberEnd >1}">
-															<ul id="">
-																<c:if test="${paginationNumberBegin != 1}">
-																	<li><a>Prev</a></li>
-																</c:if>
-																<c:forEach begin="${paginationNumberBegin}"
-																	end="${paginationNumberEnd}" var="i">
-																	<li id="li-${i}"><a class="numberPagination" id="btn-${i}">${i}</a></li>
-																</c:forEach>
-
-																<c:choose>
-																	<c:when
-																		test="${numberOfOcurrences != paginationNumberEnd}">
-																		<li id="li-${numberOfOcurrences}"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
-																	</c:when>
-																	<c:otherwise>
-																	</c:otherwise>
-																</c:choose>
-															</ul>
-														</c:if>
+														<ul id="">
+															<c:if test="${paginationNumberBegin != 1}">
+																<li style="cursor: pointer;"><a>Prev</a></li>
+															</c:if>
+															<c:forEach begin="${paginationNumberBegin}"
+																end="${paginationNumberEnd}" var="i">
+																<li id="li-${i}" style="cursor: pointer;"><a class="numberPagination" id="btn-${i}">${i}</a></li>
+															</c:forEach>
+															<c:choose>
+																<c:when test="${numberOfOcurrences != paginationNumberEnd}">
+																	<li id="li-${numberOfOcurrences}" style="cursor: pointer;"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
+																</c:when>
+																<c:otherwise>
+																</c:otherwise>
+															</c:choose>
+														</ul>
+													</c:if>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 								</div>
 							</div>
 						</div>
@@ -620,10 +582,11 @@ var pattern = new RegExp("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((10|11|12|
 			</div>
 		</div>
 	</div>
+</div>
 	<!-- footer -->
-	<div class="footer" id="footerDiv">
-		<c:import url="../taglibs/footer.jsp"></c:import>
-	</div>
+<div class="footer" id="footerDiv">
+	<c:import url="../taglibs/footer.jsp"></c:import>
+</div>
 	<!-- footer -->
 </body>
 </html>

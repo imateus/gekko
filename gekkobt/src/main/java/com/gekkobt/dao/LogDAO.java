@@ -1,71 +1,98 @@
 package com.gekkobt.dao;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.gekkobt.bean.LogBean;
-import com.gekkobt.dao.db.entity.parser.LogEntityParse;
+import com.gekkobt.bean.OccurrenceFilterBean;
 import com.gekkobt.entity.LogEntity;
+import com.gekkobt.entity.OccurrenceEntity;
 
 @Repository
 public class LogDAO extends GenericDAO<LogEntity, Long> {
 
-	public List<LogBean> findLog(String initialDate, String endDate, String userId) {
+	@SuppressWarnings("rawtypes")
+	List parameters = new ArrayList();
+	
+	public List<LogEntity> filterLog(String initialDate, String endDate,
+			String userId)
+			throws ParseException {
+		String sQuery = "";
+		sQuery = filterWhere(sQuery, initialDate, endDate, userId);
 
-		List<LogEntity> listEntity = null;
-		try {
+		TypedQuery<LogEntity> q = em.createQuery(sQuery,
+				LogEntity.class);
 
-			String qlString = "FROM LogEntity LOG where LOG.logDate BETWEEN :initialDate AND :endDate and LOG.logTypeInd != 'D'";
+		@SuppressWarnings("unchecked")
+		TypedQuery<LogEntity> queryFinal = createQuery(q);
+		return queryFinal.getResultList();
+	}
 
-			if (!"TODOS".equalsIgnoreCase(userId.toUpperCase()))
-				qlString = qlString + " and LOG.logUserId = :userId ";
+	@SuppressWarnings("unchecked")
+	private String filterWhere(String sQuery, String initialDate, String endDate,
+			String userId)
+			throws ParseException {
 
-		
-			TypedQuery<LogEntity> query = em.createQuery(qlString,
-					LogEntity.class);
+		parameters = new ArrayList<String>();
+		sQuery += "from LogEntity o where 1=1";
+		String dateMask = "__/__/____";
 
-			if (!"TODOS".equalsIgnoreCase(userId.toUpperCase()))
-				query.setParameter("userId", userId);
-			
-
-
-			query.setParameter("initialDate", initialDate);
-			query.setParameter("endDate", endDate);
-
-			listEntity = query.getResultList();
-			
-			return new LogEntityParse().entityToBean(listEntity);
-		} catch (Exception e) {
-			System.out.println(e.toString());
+		if (userId != null
+				&& !"".equals(userId)) {
+			sQuery += " AND o.userEntity.id = ?";
+			parameters.add(Long.parseLong(userId));
 		}
-		
-		return new ArrayList<LogBean>();
+
+		if (initialDate != null
+				&& !"".equals(initialDate) 
+				&& !dateMask.equals(initialDate) || endDate != null 
+				&& !"".equals(endDate) 
+				&& !dateMask.equals(endDate)) {
+
+			if (initialDate != null
+					&& !"".equals(initialDate)
+					&& !"".equals(endDate)
+					&& !dateMask.equals(initialDate)
+					&& !dateMask.equals(endDate)) {
+				sQuery += " AND o.logDate BETWEEN ? and ?";
+				parameters.add(formatDate(initialDate));
+				parameters.add(formatDate(endDate));
+
+			} else if (initialDate != null
+					&& !"".equals(initialDate)
+					&& !dateMask.equals(endDate)) {
+				sQuery += " AND o.logDate >= ?";
+				parameters.add(formatDate(initialDate));
+			} else {
+				sQuery += " AND o.logDate <= ?";
+				parameters.add(formatDate(endDate));
+			}
+		}
+			return sQuery; 	
 	}
 
-	public List<String> findUserLog() {
+	@SuppressWarnings("rawtypes")
+	private TypedQuery createQuery(TypedQuery query) {
 
-		TypedQuery<String> query = em.createQuery(
-				"SELECT DISTINCT log.logUserId  FROM LogEntity log ",
-				String.class);
-
-		List<String> list = query.getResultList();
-		return list;
+		for (int j = 0; j < parameters.size(); j++) {
+			query.setParameter(j + 1, parameters.get(j));
+		}
+		return query;
 	}
 
-	public List<String> findTypeIndLog() {
+	public Date formatDate(String dateString) throws ParseException {
 
-		TypedQuery<String> query = em.createQuery(
-				"SELECT DISTINCT log.logTypeInd  FROM LogEntity log ",
-				String.class);
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		java.sql.Date formatedDate = new java.sql.Date(format.parse(dateString)
+				.getTime());
 
-		List<String> list = query.getResultList();
-		return list;
+		return formatedDate;
 	}
 
 }

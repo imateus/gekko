@@ -19,16 +19,16 @@
 			<c:if test="${paginationNumberEnd >1}">
 				<ul id="">
 					<c:if test="${paginationNumberBegin != 1}">
-						<li><a>Prev</a></li>
+						<li style="cursor: pointer;"><a>Prev</a></li>
 					</c:if>
 					<c:forEach begin="${paginationNumberBegin}"
 						end="${paginationNumberEnd}" var="i">
-						<li id="li-${i}"><a class="numberPagination" id="btn-${i}">${i}</a></li>
+						<li id="li-${i}" style="cursor: pointer;"><a class="numberPagination" id="btn-${i}" >${i}</a></li>
 					</c:forEach>
 					
 					<c:choose>
 						<c:when test="${numberOfOcurrences != paginationNumberEnd}">
-							<li id="li-${numberOfOcurrences}"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
+							<li id="li-${numberOfOcurrences}" style="cursor: pointer;"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>

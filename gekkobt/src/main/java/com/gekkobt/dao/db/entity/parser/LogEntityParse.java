@@ -27,7 +27,7 @@ public class LogEntityParse {
 		bean.setLogRequestIpAddr(entity.getLogRequestIpAddr());
 		bean.setLogSourceText(entity.getLogSourceText());
 		bean.setLogTypeInd(entity.getLogTypeInd());
-		bean.setLogUserId(entity.getLogUserId());
+		bean.setUserBean(new UserEntityParse().entityToBean(entity.getUserEntity()));
 		bean.setLogTypeName(entity.getLogTypeInd());
 		
 		return bean;
@@ -52,7 +52,7 @@ public class LogEntityParse {
 		entity.setLogRequestIpAddr(bean.getLogRequestIpAddr());
 		entity.setLogSourceText(bean.getLogSourceText());
 		entity.setLogTypeInd(bean.getLogTypeInd());
-		entity.setLogUserId(bean.getLogUserId());
+		entity.setUserEntity(new UserEntityParse().beanToEntity(bean.getUserBean()));
 		
 		return entity;
 	}

@@ -4,10 +4,9 @@
 <%@page import="com.gekkobt.controller.ReportUserOccurrencesController"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Lista de logs</title>
-<head title="DPT - Gerenciador de Parametros">
+<head>
 <c:import url="../taglibs/resources.jsp"></c:import>
 </head>
 <style type="text/css">
@@ -15,38 +14,27 @@
 	position: absolute;
 }
 </style>
-
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#footer").addClass('pos-absolute');
-		$("#sidebar").accordion({
-			collapsible : true
-		});
 
-		$('#tbBankAccount').flexigrid({
-			width : 799,
-			singleSelect : true,
-			buttons : [ {
-				name : 'Adicionar',
-			}, {
-				separator : true
-			}, {
-				name : 'Aprovar',
-			}, {
-				separator : true
-			} ]
-		});
+	$(document).ready(function() {
+		$("#initialDate").mask("99/99/9999");
+		$("#endDate").mask("99/99/9999");
+		$("#datepicker1").datepicker();
+		$("#datepicker2").datepicker();
+		$("#footer").addClass('pos-absolute');
 	});
 
-	function ExibeTelaSemMenu(nomeTela) {
-		$("#body").empty();
-		$.each(nomeTela.split(','), function(index, nomeTela) {
-			$.get(nomeTela, function(data) {
-				$("#body").append(data);
-				$(".body").datepicker();
-			});
-		});
-	}
+	$(document).on(
+	'click',
+	'#exportExcel',
+	function() {
+		window.open("log/excelOccurrences?initialDate="
+				+ $("#initialDate").val() + "&endDate="
+				+ $("#endDate").val() + "&id="
+				+ $("#IdUserOccurrence").find(":selected").get(0).id,
+				'_blank');
+	});
+	
 </script>
 </head>
 <body>
@@ -63,110 +51,54 @@
 					<div class="page-header">
 						<h1 style="color: gray;">Relatório de logs</h1>
 					</div>
-
-					<div class="btn-group">
-
-						<ul class="dropdown-menu">
-							<li><input align="justify" type="button" id="exportExcel"
-								value="EXCEL"
-								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-							</li>
-							<!-- <li><input align="justify" type="button" id="exportPDF"
-								value="PDF"
-								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-							</li> -->
-						</ul>
-					</div>
-					<br> <br>
-
 					<div class="form-inline actions-toolbar">
-						<div class="row-fluid actions-toolbar-inner">
-
-							<div class="span1" style="width: 101px">
-								<label style=""> Usuario</label>
+						<div class="row-fluid actions-toolbar-inner" style="width: 99%;">
+							<div class="span1" style="width: 35px">
+								<label style=""> Usuario:</label>
 							</div>
-							<div class="span1" style="width: 160px;">
-								<select id="select1" name="select" style="width: 130px;">
-									<option>Selecione...</option>
-									<option>Mateus</option>
-									<option>Teste</option>
+							<div class="span1" style="width: 115px;">
+								<select name="IdUserOccurrence" style="width: 126px;" id="IdUserOccurrence">
+									<option value="">Todos...</option>
+									<c:forEach items="${users}" var="user">
+											<option id="${user.id}">
+											<c:out value="${user.userName}"></c:out>
+									</option>
+									</c:forEach>
 								</select>
 							</div>
-						</div>
-						<div class="row-fluid actions-toolbar-inner"
-							style="margin-top: 10px;">
-
-							<div class="span1" style="width: 102px;">
+							<div class="span1" style="width: 105px;">
 								<label> Data reportada de:</label>
 							</div>
-							<div class="span1" style="width: 162px;">
-								<div class="input-append date" data-date="02-01-2014"
-									data-date-format="mm-dd-yyyy">
-
-									<input name="inclusionDateParamFrom"
-										onblur="validationDate(this)" id="inclusionDateParamFrom"
-										type="text" value="${inclusionDateFrom}" style="width: 85px;" />
+							<div class="span1" style="width: 120px;">
+								<div class="input-append date">
+									<input name="initialDate" onblur="validationDate(this)" id="initialDate" type="text" value="" style="width: 85px;">
 									<span class="add-on"><i id="datepicker1" class="icon-th"></i></span>
 								</div>
 							</div>
-							<div class="span1" style="width: 30px;">
+							<div class="span1" style="width: 20px;">
 								<label> Até:</label>
 							</div>
 							<div class="span1" style="width: 105px;">
-								<div class="input-append date" id="Div2" data-date="02-01-2014"
-									data-date-format="mm-dd-yyyy">
-									<input name="inclusionDateParamTo" id="inclusionDateParamTo"
-										onblur="validationDate(this)" type="text"
-										value="${inclusionDateUtil}" style="width: 85px;" /> <span
-										class="add-on"><i id="datepicker2" class="icon-th"></i></span>
+								<div class="input-append date" id="Div2">
+									<input name="endDate" id="endDate" onblur="validationDate(this)" type="text" value="" style="width: 85px;"> <span class="add-on"><i id="datepicker2" class="icon-th"></i></span>
+								</div>
+							</div>
+							<div class="row-fluid actions-toolbar-inner" style="margin-top: 10px;">
+								<div class="span2" style="margin-left: 110px; margin-top: -13px;">
+									<button data-toggle="dropdown" id="exportExcel" class="btn dropdown-toggle">
+										<i class=" icon-external-link"></i> &nbsp;Exportar
+									</button>
 								</div>
 							</div>
 						</div>
-						<div class="row-fluid actions-toolbar-inner"
-							style="margin-top: 10px;">
-
-							<div class="span1" style="width: 102px;">
-								<label> Data resolvida de:</label>
-							</div>
-							<div class="span1" style="width: 162px;">
-								<div class="input-append date" data-date="02-01-2014"
-									data-date-format="mm-dd-yyyy">
-									<input name="finalizationDateParamFrom"
-										onblur="validationDate(this)" id="finalizationDateParamFrom"
-										type="text" value="${finalizationDateFrom}"
-										style="width: 85px;" /> <span class="add-on"><i
-										id="datepicker3" class="icon-th"></i></span>
-								</div>
-							</div>
-							<div class="span1" style="width: 30px;">
-								<label> Até:</label>
-							</div>
-							<div class="span1" style="width: 70px;">
-								<div class="input-append date" id="Div2" data-date="02-01-2014"
-									data-date-format="mm-dd-yyyy">
-									<input name="finalizationDateParamFrom"
-										onblur="validationDate(this)" id="finalizationDateParamTo"
-										type="text" value="${finalizationDateUtil}"
-										style="width: 85px;" /> <span class="add-on"><i
-										id="datepicker4" class="icon-th"></i></span>
-								</div>
-							</div>
-							<div class="span2" style="margin-left: 60px; float: right;">
-								<button data-toggle="dropdown" class="btn dropdown-toggle">
-									<i class=" icon-external-link"></i> &nbsp;Exportar
-								</button>
-							</div>
-						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
-	<div>
-		<c:import url="../taglibs/footer.jsp"></c:import>
-	</div>
+<div>
+	<c:import url="../taglibs/footer.jsp"></c:import>
+</div>
 
 </body>
 </html>

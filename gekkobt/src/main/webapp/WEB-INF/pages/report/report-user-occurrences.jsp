@@ -70,8 +70,7 @@ button {
 	<!-- Header -->
 	<c:import url="../taglibs/header.jsp"></c:import>
 	<!-- Header -->
-	<form action="<c:url value="/userOccurrences/getUser"/>"
-		id="meuFormulario" method="post">
+	<form action="<c:url value="/userOccurrences/getUser"/>" id="meuFormulario" method="post">
 		<input type="hidden" id="idDoUsuario" name="idUserSelected">
 	</form>
 	<div id="body" style="padding: 4px;">
@@ -83,30 +82,18 @@ button {
 					</div>
 					<div class="btn-group">
 						<button data-toggle="dropdown" class="btn dropdown-toggle">
-							<i class=" icon-external-link"></i> &nbsp;Exportar <span
-								class="icon-sort-down"></span>
+							<i class=" icon-external-link"></i> &nbsp;Exportar <span class="icon-sort-down"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><input align="justify" type="button" id="exportExcel"
-								value="EXCEL"
-								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-							</li>
-							<!-- <li><input align="justify" type="button" id="exportPDF"
-								value="PDF"
-								style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;">
-							</li> -->
+							<li><input align="justify" type="button" id="exportExcel" value="EXCEL" style="background: white; border-color: none; border: none; font-size: inherit; margin-left: 10px;"></li>
 						</ul>
 					</div>
 					<br><br>
 					<div class="form-inline actions-toolbar">
-
-						<div class="row-fluid actions-toolbar-inner"
-							style="width: 99%;">
-
+						<div class="row-fluid actions-toolbar-inner" style="width: 99%;">
 							<div class="span1" style="width: 75px;">Usuário:</div>
 							<div class="span1" style="width: 160px;">
-								<select name="responsibleId" style="width: 126px;"
-									id="responsibleId">
+								<select name="responsibleId" style="width: 126px;" id="responsibleId">
 									<option value="">Todos...</option>
 									<c:forEach items="${user}" var="user">
 										<option id="${user.id}">
@@ -121,23 +108,16 @@ button {
 								</button>
 							</div>
 						</div>
-
-
 					</div >
 					<div style="width: 100%; overflow: auto;" id="tableUsers">
 						<table id="example" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Usuário<i class="sort"></i>
-									</th>
-									<th>Ocorrências criadas<i class="sort"></i>
-									</th>
-									<th>Ocorrências resolvidas<i class="sort"></i>
-									</th>
-									<th>Ocorrências pendentes<i class="sort"></i>
-									</th>
-									<th>Ultima atualização<i class="sort"></i>
-									</th>
+									<th>Usuário<i class="sort"></i></th>
+									<th>Ocorrências criadas<i class="sort"></i></th>
+									<th>Ocorrências resolvidas<i class="sort"></i></th>
+									<th>Ocorrências pendentes<i class="sort"></i></th>
+									<th>Ultima atualização<i class="sort"></i></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -169,10 +149,10 @@ button {
 			</div>
 		</div>
 	</div>
-
+<!--  footer -->
 	<div>
 		<c:import url="../taglibs/footer.jsp"></c:import>
 	</div>
-
+<!--  footer -->
 </body>
 </html>

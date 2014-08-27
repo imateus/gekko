@@ -75,8 +75,6 @@ public class ExcelOccurrenceView extends AbstractExcelView {
         cellStyle.setFillForegroundColor(HSSFColor.LIGHT_GREEN.index);
         cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
        
-        
-   
         HSSFCell cell = rowHeader.createCell(indexCell);
         cell.setCellStyle(cellStyle);
         cell.setCellValue(titleCell);

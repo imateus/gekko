@@ -14,13 +14,10 @@ public class UserBean {
 
 	private Long id;
 
-	@NotEmpty(message = "Login não pode ser nulo.")
 	private String userLogin;
 
-	@NotEmpty(message = "Senha não pode ser nula.")
 	private String userPassword;
 
-	@NotEmpty(message = "E-mail não pode ser nulo.")
 	private String userEmail;
 
 	private String userName;

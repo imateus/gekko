@@ -3,11 +3,14 @@ package com.gekkobt.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -38,8 +41,9 @@ public class LogEntity implements Serializable {
 	@Column(name="LOG_TYPE_IND")
 	private String logTypeInd;
 	
-	@Column(name="LOG_USER_ID")
-	private String logUserId;
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name="LOG_USER_ID")
+	private UserEntity userEntity;
 	
 	@Column(name="LOG_REQUEST_IP_ADDR")
 	private String logRequestIpAddr;
@@ -87,12 +91,16 @@ public class LogEntity implements Serializable {
 		this.logTypeInd = logTypeInd;
 	}
 
-	public String getLogUserId() {
-		return logUserId;
+	public UserEntity getUserEntity() {
+		return userEntity;
 	}
 
-	public void setLogUserId(String logUserId) {
-		this.logUserId = logUserId;
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public String getLogRequestIpAddr() {

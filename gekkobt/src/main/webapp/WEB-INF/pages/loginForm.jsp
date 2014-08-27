@@ -72,7 +72,7 @@
 			<%--<h6 style="float: left; position: relative; top: 5px; text-align: justify;">
 			<font color="red">${mensagem}</font></h6> --%>
 		</c:if>
-		<form action="login/userMake" method="post">
+		<form action="login/loginForm" method="post">
 
 			<div id="container">
 				<label for="userLogin">Username:</label> <input type="text"
