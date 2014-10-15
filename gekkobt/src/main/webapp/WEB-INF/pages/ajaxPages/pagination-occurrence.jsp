@@ -28,7 +28,7 @@
 					
 					<c:choose>
 						<c:when test="${numberOfOcurrences != paginationNumberEnd}">
-							<li id="li-${numberOfOcurrences}" style="cursor: pointer;"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
+							<li id="" style="cursor: pointer;"><a class="" id="">Next</a></li>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>

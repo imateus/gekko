@@ -137,7 +137,7 @@ button {
 										<td>${report.qtdAlterScope}</td>
 										<td>${report.qtdRecurrence}</td>
 									</tr>
-								</c:forEach>
+								</c:forEach	>
 							</tbody>
 						</table>
 					</div>
@@ -147,7 +147,9 @@ button {
 		</div>
 	</div>
 <!-- Footer -->
+	<div>
 	<c:import url="../taglibs/footer.jsp"></c:import>
+	</div>
 <!-- Footer -->
 </body>
 </html>

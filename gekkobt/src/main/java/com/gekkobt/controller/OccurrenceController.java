@@ -150,8 +150,7 @@ public class OccurrenceController {
 		if (list.size() > 0) {
 			model.addAttribute("occurrence", list);
 			model.addAttribute("numberOfOcurrences", numberPage);
-
-		
+			
 			if (!(pagination < 3 )) {
 				begin = pagination - 2;
 			}
@@ -173,6 +172,10 @@ public class OccurrenceController {
 				if ((end-begin) >= 5) {
 					begin=begin+1;
 				}
+			}
+			
+			if (numberPage == 1) {
+				end = numberPage;
 			}
 			
 			model.addAttribute("paginationNumberBegin", begin);

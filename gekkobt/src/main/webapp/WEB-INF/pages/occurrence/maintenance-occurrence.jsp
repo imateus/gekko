@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -147,6 +148,8 @@ button {
 	$(document).on('click', '#btnCancelImport', closeImportFIle = function() {
 		$("#btnQuery").hide();
 		$("#fileNameDiv").hide();
+		$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
+		window.location.href = "maintenance?id=" + $("#id").val();
 	});
 
 	$(document)
@@ -194,6 +197,7 @@ button {
 													} else {
 														$("#printError").text("Ocorrencia alterada com sucesso.");
 													}
+													$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 													window.location.href = "maintenance?id=" + $("#hdn-id-ocurrence").val();
 												}
 											});
@@ -223,6 +227,7 @@ button {
 				}, function(data) {
 					obj = handleJSON(data);
 					hasError = handleError(obj);
+					$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 					window.location.href = "maintenance?id=" + $("#id").val();
 					if (!hasError) {
 						$("#hdn-id-ocurrence").val(obj.id);
@@ -242,11 +247,23 @@ button {
 			function() {
 				if ($("#TitlePageEdit").text() == "Detalhe da ocorrência"
 						|| $("#TitlePageEdit").text() == "Inserir ocorrência") {
+					$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 					window.location.href = "../occurrence";
 				} else {
-					window.location.href = "maintenance?id=" + $("#hdn-id-ocurrence").val();
+					$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
+					
 				}
 			});
+	
+	
+	$(document).on(
+			'click',
+			'#cancelFrmEditStatusOccurrence',
+			function() {	
+				$("#historicJustification").val='';
+				$("#labelDateFinalization").val='';
+			});
+
 
 	$(document)
 			.on('click',
@@ -336,8 +353,10 @@ button {
 
 	function openPage(param) {
 		if (param == undefined) {
+			$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 			window.location.href = "maintenance";
 		} else {
+			$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 			window.location.href = "maintenance?id=" + param;
 		}
 	}
@@ -360,6 +379,7 @@ button {
 		}, function(data) {
 			obj = handleJSON(data);
 			hasError = handleError(obj);
+			$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 			window.location.href = "maintenance?id=" + $("#id").val();
 			if (!hasError) {
 			}
@@ -370,6 +390,7 @@ button {
 			'click',
 			'#exportExcel',
 			function () {
+				$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
 				window.open("maintenance/exportExcelMaintenance?id=" + $("#id").val(), '_blank');
 			});
 	
@@ -545,7 +566,7 @@ button {
 							<c:forEach items="${annex}" var="annex">
 								<tr id="annex_${annex.id}">
 									<td>${annex.fileName}.${annex.fileExtension}</td>
-									<td>${annex.inclusionDate}</td>
+									<td><fmt:formatDate pattern="dd/MM/yyyy" value="${annex.inclusionDate}" /></td>																
 									<td>${annex.userBean.userName}</td>
 									<td><a class="icon-download-alt"
 										href="download/${annex.id}"
@@ -631,7 +652,7 @@ button {
 				</div>
 				<div class="modal-footer">
 					<button id="submitFrmEditStatusOccurrence" type="button" class="btn btn-primary">Salvar</button>
-					<button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+					<button id="cancelFrmEditStatusOccurrence" type="button" class="btn" data-dismiss="modal">Cancelar</button>
 				</div>
 			</div>
 		</div>

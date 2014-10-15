@@ -179,7 +179,8 @@ public class OccurrenceService {
 		occurrenceBean.setId(historicStatusBean.getIdOccurrenceBean().getId());
 		occurrenceBean.setStatusBean(historicStatusBean.getHistoricStatusBean());
 		updateOccurrenceStatus(occurrenceBean, historicStatusBean.getHistoricStatusBean());
-
+		
+		
 		UserEntity userEntity = loginService.searchUserById(userBean);
 		GregorianCalendar calendar = new GregorianCalendar();
 		HistoricStatusEntityParse entityParse = new HistoricStatusEntityParse();

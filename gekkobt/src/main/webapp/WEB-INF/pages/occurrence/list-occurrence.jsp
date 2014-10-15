@@ -87,6 +87,7 @@ jQuery(function($){
 
 		function renderPagination(){
  			$(".numberPagination").click(function() {
+ 					$.blockUI({ message: '<h4><img src="" /> Carregando...</h4>' });
  					var liNumber = $(this).parent().attr("id");
 					$(this).attr("disabled", true);		
 	    			$("li[id^='li-']").removeClass("active");
@@ -99,7 +100,7 @@ jQuery(function($){
 					IdResponsableOccurrence : $("#IdResponsableOccurrence").find(":selected").get(0).id,
 					IdUserOccurrence : $("#IdUserOccurrence").find(":selected").get(0).id,
 					inclusionDateParamFrom : $("#inclusionDateParamFrom").val(),
-					inclusionDateParamTo : $("#inclusionDateParamTo").val(),
+					inclusionDateParamTo : $("#inclusionDateParamTo").val(),		  	
 					finalizationDateParamFrom : $("#finalizationDateParamFrom").val(),
 					finalizationDateParamTo : $("#finalizationDateParamTo").val(),
 				}, function(data) {
@@ -124,6 +125,7 @@ jQuery(function($){
 										$("#footer").addClass('pos-absolute');
 									}
 								}
+								$.unblockUI();
 							});
 					}else{
 						if(obj !=null){
@@ -131,13 +133,16 @@ jQuery(function($){
 							$("#messageAlert").removeClass('not-visible');
 							$("#footer").addClass('pos-absolute');
 							$("#occurrenceEmpty").hide();
+							
 						}
+						$.unblockUI();
 					}
 					$("#"+liNumber).attr("disabled", true);		
 			 		$("#"+liNumber).addClass("active");
 				});	
 				
 			});
+ 			$.unblockUI();	
  		};
  					
 				  	renderPagination(); 
@@ -190,7 +195,10 @@ jQuery(function($){
 						$("#occurrenceEmpty").hide();
 					}
 				}
-			});
+				$("#li-1").attr("disabled", true);		
+				$("#li-1").addClass("active");	
+				$.unblockUI();
+			});	
 		});
 	});
 
@@ -327,7 +335,7 @@ jQuery(function($){
 						<div class="form-inline actions-toolbar" style="padding: 08px 12px 08px 0px; width: 99%;">
 							<div class="row-fluid actions-toolbar-inner">
 								<div class="span1" style="width: 50px;">
-									<label style="">ID</label>
+									<lab el style="">ID</label>
 								</div>
 								<div class="span1" style="width: 150px;">
 									<input class="numbersOnly" name="idOccurrence" id="idOccurrence" type="text" value="${searchId}" maxlength="5" style="width: 111px;" />
@@ -563,7 +571,7 @@ jQuery(function($){
 															</c:forEach>
 															<c:choose>
 																<c:when test="${numberOfOcurrences != paginationNumberEnd}">
-																	<li id="li-${numberOfOcurrences}" style="cursor: pointer;"><a class="numberPagination" id="btn-${numberOfOcurrences}">Next</a></li>
+																	<li id="" style="cursor: pointer;"><a class="" id="">Next</a></li>
 																</c:when>
 																<c:otherwise>
 																</c:otherwise>

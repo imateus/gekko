@@ -114,7 +114,9 @@ public class Logger {
 			entity.setLogTypeInd(log.getValue());
 			logger4j.debug("[MESSAGE]" + message + "[/MESSAGE] :: [TEXT]"
 					+ text + "[/TEXT]");
-			dao.save(entity);
+			if (!log.getValue().equals("D")) {
+				dao.save(entity);
+			}
 		} catch (Exception e) {
 			logger4j.info("[MESSAGE]" + message + "[/MESSAGE] :: [TEXT]" + text
 					+ "[/TEXT]");

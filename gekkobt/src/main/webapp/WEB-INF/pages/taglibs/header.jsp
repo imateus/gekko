@@ -4,10 +4,10 @@
 
 <div id="header">
 	<div id="citi-header">
-		<a class="logo pull-left" href="<c:url value="occurrence"/>"> <img src="<c:url value="/resources/img/logo.png"/>" style="width: 35px; position: relative; top: -18px; padding: 8px 10px 10px 5px; cursor: pointer;">
+		<a class="logo pull-left" href="<c:url value="occurrence"/>"> <img src="<c:url value="/resources/img/logo.png"/>" style=" z-index: 3;width: 35px; position: relative; top: -18px; padding: 8px 10px 10px 5px; cursor: pointer;">
 		</a>
 		<div class="app_logo">
-			<span style="color: white; font-size: 17px; font-weight: bold;">Gekko Bug tracker</span>
+			<span style="color: white; font-size: 17px; font-weight: bold; z-index: 1;">Gekko Bug tracker</span>
 		</div>
 	</div>
 	<div id="main-nav" class="navbar">

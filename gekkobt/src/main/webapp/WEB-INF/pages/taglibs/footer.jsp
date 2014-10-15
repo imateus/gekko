@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 	
-	<div id="footer" style="bottom: 0px; width: 97%;">
+	<div id="footer" style="bottom: 0px; width: 96%;">
 		<div class="navbar">
 			<div class="navbar-inner">
 				<a href="#" class="pull-right">Back to top</a>
